@@ -1,0 +1,5 @@
+C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\bin\Debug\StudentAI.dll
+C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\bin\Debug\StudentAI.pdb
+C:\Users\shaun\Dropbox\uvschess-1.0.2\StudentAI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\shaun\Dropbox\uvschess-1.0.2\StudentAI\obj\Debug\StudentAI.dll
+C:\Users\shaun\Dropbox\uvschess-1.0.2\StudentAI\obj\Debug\StudentAI.pdb
