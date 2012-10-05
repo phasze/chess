@@ -23,3 +23,5 @@ C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\obj\Debug\ResGen.read.1.tlog
 C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\obj\Debug\ResGen.write.1.tlog
 C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\obj\Debug\UvsChess.exe
 C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\obj\Debug\UvsChess.pdb
+E:\Dropbox\Dropbox\Fall 2012\AI\uvschess-1.0.2\Framework\obj\Debug\UvsChess.exe
+E:\Dropbox\Dropbox\Fall 2012\AI\uvschess-1.0.2\Framework\obj\Debug\UvsChess.pdb

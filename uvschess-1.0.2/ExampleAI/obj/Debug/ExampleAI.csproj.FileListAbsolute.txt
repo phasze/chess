@@ -1,0 +1,5 @@
+C:\Users\shaun\Downloads\uvschess-1.0.2\uvschess-1.0.2\Framework\bin\Debug\ExampleAI.dll
+C:\Users\shaun\Downloads\uvschess-1.0.2\uvschess-1.0.2\Framework\bin\Debug\ExampleAI.pdb
+C:\Users\shaun\Downloads\uvschess-1.0.2\uvschess-1.0.2\ExampleAI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\shaun\Downloads\uvschess-1.0.2\uvschess-1.0.2\ExampleAI\obj\Debug\ExampleAI.dll
+C:\Users\shaun\Downloads\uvschess-1.0.2\uvschess-1.0.2\ExampleAI\obj\Debug\ExampleAI.pdb
