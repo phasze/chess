@@ -10,8 +10,8 @@ namespace StudentAI
     /// <summary>
     /// This Class is simply to validate moves made.
     /// Each function should consist of these rules
-    /// 1) new move is valid (still on board and conforms to piece rules)
-    /// 2) ensure it doesn't put their own king into check
+    /// 1) new move is valid (conforms to piece rules)
+    /// 2) 
     /// 3) Doesn't kill it's own team
     /// </summary>
     class VaidateMove
@@ -161,7 +161,191 @@ namespace StudentAI
             return true;
         }
 
+        /// <summary>
+        /// Checks if the white knight move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool WhiteKnight(ChessBoard board, ChessMove move)
+        {
+            //if not killing or empty space throw error
+            if (!KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.White))
+                return false;
 
+            //if not in a style of knight movement throw error
+            if(Math.Abs(move.To.X-move.From.X)==2)
+            {
+                if (Math.Abs(move.To.Y - move.From.Y) != 1)
+                    return false;
+            }
+            else if (Math.Abs(move.To.X - move.From.X) == 1)
+            {
+                if (Math.Abs(move.To.Y - move.From.Y) != 2)
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if the white knight move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool BlackKnight(ChessBoard board, ChessMove move)
+        {
+            //if not killing or empty space throw error
+            if (!KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
+                return false;
+
+            //if not in a style of knight movement throw error
+            if (Math.Abs(move.To.X - move.From.X) == 2)
+            {
+                if (Math.Abs(move.To.Y - move.From.Y) != 1)
+                    return false;
+            }
+            else if (Math.Abs(move.To.X - move.From.X) == 1)
+            {
+                if (Math.Abs(move.To.Y - move.From.Y) != 2)
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if white rook move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool WhiteRook(ChessBoard board, ChessMove move)
+        {
+            //if he tries to move diagonal throw an error
+            if(move.To.X!=move.From.X && move.To.Y!=move.From.Y)
+            {
+                return false;
+            }
+
+            //if the path is not clear or they are not moving to kill then no good
+            if (!PathClear(move.From.X, move.From.Y, move.To.X, move.To.Y, board) || !KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.White))
+                return false;
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if black rook move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool BlackRook(ChessBoard board, ChessMove move)
+        {
+            //if he tries to move diagonal throw an error
+            if (move.To.X != move.From.X && move.To.Y != move.From.Y)
+            {
+                return false;
+            }
+
+            //if the path is not clear or they are not moving to kill then no good
+            if (!PathClear(move.From.X, move.From.Y, move.To.X, move.To.Y, board) || !KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
+                return false;
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if black bishop move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool BlackBishop(ChessBoard board, ChessMove move)
+        {
+            //if he tries to move diagonal throw an error
+            if (Math.Abs(move.From.X - move.To.X) != Math.Abs(move.From.Y - move.To.Y))
+            {
+                return false;
+            }
+
+            //if the path is not clear or they are not moving to kill then no good
+            if (!PathClear(move.From.X, move.From.Y, move.To.X, move.To.Y, board) || !KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
+                return false;
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if white bishop move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool WhiteBishop(ChessBoard board, ChessMove move)
+        {
+            //if he tries to move diagonal throw an error
+            if (Math.Abs(move.From.X - move.To.X) != Math.Abs(move.From.Y - move.To.Y))
+            {
+                return false;
+            }
+
+            //if the path is not clear or they are not moving to kill then no good
+            if (!PathClear(move.From.X, move.From.Y, move.To.X, move.To.Y, board) || !KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.White))
+                return false;
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if white queen move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool WhiteQueen(ChessBoard board, ChessMove move)
+        {
+
+            //if the path is not clear or they are not moving to kill then no good
+            if (!PathClear(move.From.X, move.From.Y, move.To.X, move.To.Y, board) || !KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.White))
+                return false;
+
+            //all good
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if white queen move is valid
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public static bool BlackQueen(ChessBoard board, ChessMove move)
+        {
+
+            //if the path is not clear or they are not moving to kill then no good
+            if (!PathClear(move.From.X, move.From.Y, move.To.X, move.To.Y, board) || !KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
+                return false;
+
+            //all good
+            return true;
+        }
 
         //easy enough to just use inline check for this instead of calling a function
         /*private static bool CheckEmpty(int x, int y, ChessBoard board)
@@ -171,6 +355,78 @@ namespace StudentAI
             return false;
         }*/
 
+        //this will not check last position for enemy or blank
+        private static bool PathClear(int fromX, int fromY, int toX, int toY, ChessBoard board)
+        {
+            //if horizontal
+            if(fromY==toY)
+            {
+                if (toX - fromX > 0)
+                    fromX++;
+                else
+                    fromX--;
+                while (fromX != toX)
+                {
+                    if (board[fromX, fromY] != ChessPiece.Empty)
+                        return false;
+                    if (toX - fromX > 0)
+                        fromX++;
+                    else
+                        fromX--;
+                }
+            }
+            //if vertical
+            else if(fromX==toX)
+            {
+                if (toY - fromY > 0)
+                    fromY++;
+                else
+                    fromY--;
+                while (fromY != toY)
+                {
+                    if (board[fromX, fromY] != ChessPiece.Empty)
+                        return false;
+                    if (toY - fromY > 0)
+                        fromY++;
+                    else
+                        fromY--;
+                }
+            }
+            //if diagonal
+            else if(Math.Abs(fromX-toX)==Math.Abs(fromY-toY))
+            {
+                if (toY - fromY > 0)
+                    fromY++;
+                else
+                    fromY--;
+
+                if (toX - fromX > 0)
+                    fromX++;
+                else
+                    fromX--;
+
+                while (fromY != toY)
+                {
+                    if (board[fromX, fromY] != ChessPiece.Empty)
+                        return false;
+                    if (toY - fromY > 0)
+                        fromY++;
+                    else
+                        fromY--;
+
+                    if (toX - fromX > 0)
+                        fromX++;
+                    else
+                        fromX--;
+                }
+            }
+            else //if none of the above
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         //check if move is enemy
         private static bool IsEnemy(int x, int y, ChessBoard board, ChessColor color)
