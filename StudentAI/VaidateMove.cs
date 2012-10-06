@@ -24,17 +24,13 @@ namespace StudentAI
         /// <returns>true if valid move, false is invalid</returns>
         public static bool WhiteKing(ChessBoard board, ChessMove move)
         {
-            //validate the move is still on the board as well as
             //  ensure new move is onto an enemy piece or empty space
-            if (!OnBoardAndKillOrEmpty(move.To.X, move.To.Y,board,ChessColor.White))
+            if (!KillOrEmpty(move.To.X, move.To.Y,board,ChessColor.White))
                 return false;
 
             //validate the move is only one space away for a king
             if (Math.Abs(move.To.X - move.From.X) > 1 || Math.Abs(move.To.Y - move.From.Y) > 1)
                 return false;
-
-            //TODO validate it doesn't put self into check
-
 
             //if all checks pass then
             return true;
@@ -49,21 +45,123 @@ namespace StudentAI
         /// <returns>true if valid move, false is invalid</returns>
         public static bool BlackKing(ChessBoard board, ChessMove move)
         {
-            //validate the move is still on the board as well as
             //  ensure new move is onto an enemy piece or empty space
-            if (!OnBoardAndKillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
+            if (!KillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
                 return false;
 
             //validate the move is only one space away for a king
             if (Math.Abs(move.To.X - move.From.X) > 1 || Math.Abs(move.To.Y - move.From.Y) > 1)
                 return false;
 
-            //TODO validate it doesn't put self into check
-
-
             //if all checks pass then
             return true;
         }
+
+        /// <summary>
+        /// Checks if the move the white pawn wants to make is valid
+        /// </summary>
+        /// <param name="board">board state before move</param>
+        /// <param name="move">move the piece wants to make</param>
+        /// <returns>true if valid move, false is invalid</returns>
+        public static bool WhitePawn(ChessBoard board, ChessMove move)
+        {
+            //if pawn tries to move backwords
+            if (move.To.Y >= move.From.Y) //white pawns Y goes up or less than
+                return false;
+
+            //validate move is still on board & is empty or kill
+            if(move.From.Y==6 && move.To.Y==4) //trying to move two places from start
+            {
+                //make sure they're moving to the same column
+                if (move.To.X != move.From.X)
+                    return false;
+
+                //if both spaces are not empty
+                if (board[move.To.X, move.To.Y] != ChessPiece.Empty || board[move.To.X, move.To.Y + 1] != ChessPiece.Empty) 
+                    return false;
+            }
+            //if just moving forward by one
+            else if(move.From.Y-move.To.Y==1)
+            {
+                //if going for kill diagnoally
+                if (Math.Abs(move.From.X - move.To.X) == 1)
+                {
+                    if (!IsEnemy(move.To.X, move.To.Y, board, ChessColor.White))
+                        return false;
+                }
+                //if just moving forward
+                else if (move.From.X == move.To.X)
+                {
+                    if(board[move.To.X, move.To.Y] != ChessPiece.Empty)
+                        return false;
+                }
+                //otherwise false if moving too far horizontally
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            //all checks pass
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if the move the white pawn wants to make is valid
+        /// </summary>
+        /// <param name="board">board state before move</param>
+        /// <param name="move">move the piece wants to make</param>
+        /// <returns>true if valid move, false is invalid</returns>
+        public static bool BlackPawn(ChessBoard board, ChessMove move)
+        {
+            //if pawn tries to move backwords
+            if (move.To.Y <= move.From.Y) //white pawns Y goes up or less than
+                return false;
+
+            //validate move is still on board & is empty or kill
+            if (move.From.Y == 1 && move.To.Y == 3) //trying to move two places from start
+            {
+                //make sure they're moving to the same column
+                if (move.To.X != move.From.X)
+                    return false;
+
+                //if both spaces are not empty
+                if (board[move.To.X, move.To.Y] != ChessPiece.Empty || board[move.To.X, move.To.Y - 1] != ChessPiece.Empty)
+                    return false;
+            }
+            //if just moving forward by one
+            else if (move.To.Y - move.From.Y == 1)
+            {
+                //if going for kill diagnoally
+                if (Math.Abs(move.From.X - move.To.X) == 1)
+                {
+                    if (!IsEnemy(move.To.X, move.To.Y, board, ChessColor.Black))
+                        return false;
+                }
+                //if just moving forward
+                else if (move.From.X == move.To.X)
+                {
+                    if (board[move.To.X, move.To.Y] != ChessPiece.Empty)
+                        return false;
+                }
+                //otherwise false if moving too far horizontally
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            //all checks pass
+            return true;
+        }
+
+
 
         //easy enough to just use inline check for this instead of calling a function
         /*private static bool CheckEmpty(int x, int y, ChessBoard board)
@@ -74,13 +172,47 @@ namespace StudentAI
         }*/
 
 
-        //checks if the move is still located on the board & is moved onto empty or kill spot
-        private static bool OnBoardAndKillOrEmpty(int x, int y,ChessBoard board,ChessColor color)
+        //check if move is enemy
+        private static bool IsEnemy(int x, int y, ChessBoard board, ChessColor color)
         {
-            if (x > 8 || x < 0 || y > 8 || y < 0)
-                return false;
+            if (color == ChessColor.White)
+            {
+                switch (board[x, y])
+                {
+                    case ChessPiece.BlackPawn:
+                    case ChessPiece.BlackKnight:
+                    case ChessPiece.BlackBishop:
+                    case ChessPiece.BlackQueen:
+                    case ChessPiece.BlackRook:
+                    case ChessPiece.BlackKing:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            else if (color == ChessColor.Black)
+            {
+                switch (board[x, y])
+                {
+                    case ChessPiece.WhiteBishop:
+                    case ChessPiece.WhiteKing:
+                    case ChessPiece.WhiteKnight:
+                    case ChessPiece.WhitePawn:
+                    case ChessPiece.WhiteQueen:
+                    case ChessPiece.WhiteRook:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            throw new Exception("No Color defined");
+        }
 
-            if(board[x,y] == ChessPiece.Empty)
+        //checks if the move is still located on the board & is moved onto empty or kill spot
+        private static bool KillOrEmpty(int x, int y,ChessBoard board,ChessColor color)
+        {
+
+            if(board[x,y] != ChessPiece.Empty)
             {
                 if(color==ChessColor.White)
                 {

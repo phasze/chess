@@ -46,6 +46,12 @@ namespace StudentAI
             //possibly switch through pieces to validate the move
             var piece = boardBeforeMove[moveToCheck.From.X, moveToCheck.From.Y];
 
+            //if the piece tried to move off the board...
+            if (moveToCheck.To.X > 8 || moveToCheck.To.X < 0 || moveToCheck.To.Y > 8 || moveToCheck.To.Y < 0)
+                return false;
+
+            //TODO Check if the colorOfPlayerMoving is in check after this move
+
             //validate color of player moving is the color of the chess piece
 
             switch(piece)
@@ -58,70 +64,62 @@ namespace StudentAI
                 case ChessPiece.WhiteQueen:
                     if (colorOfPlayerMoving != ChessColor.White)
                         return false;
-                    return; //TODO true if valid move
+                    return VaidateMove.BlackKing(boardBeforeMove, moveToCheck);
 
                 case ChessPiece.WhitePawn:
                     if (colorOfPlayerMoving != ChessColor.White)
                         return false;
-                    return; //TODO true if valid move
+                    return VaidateMove.WhitePawn(boardBeforeMove, moveToCheck);
 
                 case ChessPiece.WhiteRook:
                     if (colorOfPlayerMoving != ChessColor.White)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 case ChessPiece.WhiteKnight:
                     if (colorOfPlayerMoving != ChessColor.White)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 case ChessPiece.WhiteBishop:
                     if (colorOfPlayerMoving != ChessColor.White)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 case ChessPiece.BlackPawn:
                     if (colorOfPlayerMoving != ChessColor.Black)
                         return false;
-                    return; //TODO true if valid move
+                    return VaidateMove.BlackPawn(boardBeforeMove, moveToCheck);
 
                 case ChessPiece.BlackKnight:
                     if (colorOfPlayerMoving != ChessColor.Black)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 case ChessPiece.BlackBishop:
                     if (colorOfPlayerMoving != ChessColor.Black)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 case ChessPiece.BlackQueen:
                     if (colorOfPlayerMoving != ChessColor.Black)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 case ChessPiece.BlackRook:
                     if (colorOfPlayerMoving != ChessColor.Black)
                         return false;
-                    return; //TODO true if valid move
+                    break;//TODO true if valid move
 
                 default:
                     return false;
             }
-            //white should always move up (if pawn)
-            //black should always moev down (if pawn)
+
+
             throw (new NotImplementedException());
         }
 
         #endregion
-
-
-
-
-
-
-
-
 
 
 
