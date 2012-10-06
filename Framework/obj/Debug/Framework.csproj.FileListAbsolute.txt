@@ -25,3 +25,5 @@ C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\obj\Debug\UvsChess.exe
 C:\Users\shaun\Dropbox\uvschess-1.0.2\Framework\obj\Debug\UvsChess.pdb
 E:\Dropbox\Dropbox\Fall 2012\AI\uvschess-1.0.2\Framework\obj\Debug\UvsChess.exe
 E:\Dropbox\Dropbox\Fall 2012\AI\uvschess-1.0.2\Framework\obj\Debug\UvsChess.pdb
+C:\Users\shaun\Documents\Visual Studio 2010\Projects\4470\chess\Framework\obj\Debug\UvsChess.exe
+C:\Users\shaun\Documents\Visual Studio 2010\Projects\4470\chess\Framework\obj\Debug\UvsChess.pdb
