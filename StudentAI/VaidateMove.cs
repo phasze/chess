@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UvsChess;
 
 
@@ -446,7 +443,7 @@ namespace StudentAI
                         return false;
                 }
             }
-            else if (color == ChessColor.Black)
+            if (color == ChessColor.Black)
             {
                 switch (board[x, y])
                 {
