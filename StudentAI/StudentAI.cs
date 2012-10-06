@@ -139,8 +139,8 @@ namespace StudentAI
             //List<ChessPiece> enemyTeam = new List<ChessPiece>();
 
             //store location of King of Piece moving
-            int KingX = -1;
-            int KingY = -1;
+            int kingX = -1;
+            int kingY = -1;
 
             //populate the enemyTeam list with all enemy pieces
             for(int x=0;x<8;x++)
@@ -151,8 +151,8 @@ namespace StudentAI
                     {
                         if(board[x,y]==ChessPiece.WhiteKing)
                         {
-                            KingX = x;
-                            KingY = y;
+                            kingX = x;
+                            kingY = y;
                         }
                         switch (board[x, y])
                         {
@@ -162,9 +162,7 @@ namespace StudentAI
                             case ChessPiece.BlackQueen:
                             case ChessPiece.BlackRook:
                             case ChessPiece.BlackKing:
-                                enemyTeam.Add(new int[]{x,y}, board[x,y]);
-                                break;
-                            default:
+                                enemyTeam.Add(new[]{x,y}, board[x,y]);
                                 break;
                         }
                     }
@@ -172,8 +170,8 @@ namespace StudentAI
                     {
                         if(board[x,y]==ChessPiece.BlackKing)
                         {
-                            KingX = x;
-                            KingY = y;
+                            kingX = x;
+                            kingY = y;
                         }
                         switch (board[x, y])
                         {
@@ -183,65 +181,64 @@ namespace StudentAI
                             case ChessPiece.WhitePawn:
                             case ChessPiece.WhiteQueen:
                             case ChessPiece.WhiteRook:
-                                enemyTeam.Add(new int[]{x,y}, board[x,y]);
-                                break;
-                            default:
+                                enemyTeam.Add(new[]{x,y}, board[x,y]);
                                 break;
                         }
                     }
                 }
             }
+
             //try and kill the king
             foreach (var chessPiece in enemyTeam)
             {
                 switch (chessPiece.Value)
                 {
                     case ChessPiece.WhiteBishop:
-                        if (VaidateMove.WhiteBishop(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.WhiteBishop(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.WhiteKing:
-                        if (VaidateMove.WhiteKing(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.WhiteKing(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.WhiteKnight:
-                        if (VaidateMove.WhiteKnight(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.WhiteKnight(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.WhitePawn:
-                        if (VaidateMove.WhitePawn(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.WhitePawn(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.WhiteQueen:
-                        if (VaidateMove.WhiteQueen(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.WhiteQueen(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.WhiteRook:
-                        if (VaidateMove.WhiteRook(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.WhiteRook(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.BlackPawn:
-                        if (VaidateMove.BlackPawn(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.BlackPawn(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.BlackKnight:
-                        if (VaidateMove.BlackKnight(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.BlackKnight(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.BlackBishop:
-                        if (VaidateMove.BlackBishop(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.BlackBishop(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.BlackQueen:
-                        if (VaidateMove.BlackQueen(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.BlackQueen(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.BlackRook:
-                        if (VaidateMove.BlackRook(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.BlackRook(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                     case ChessPiece.BlackKing:
-                        if (VaidateMove.BlackKing(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(KingX, KingY))))
+                        if (VaidateMove.BlackKing(board, new ChessMove(new ChessLocation(chessPiece.Key[0], chessPiece.Key[1]), new ChessLocation(kingX, kingY))))
                             return true;
                         break;
                 }
