@@ -31,7 +31,7 @@ namespace StudentAI
                 return false;
 
             //validate it doesn't put self into check
-            //VS2012 test
+            //VS2012 test, git test
 
 
             //if all checks pass then
