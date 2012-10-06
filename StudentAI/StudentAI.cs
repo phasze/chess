@@ -54,10 +54,9 @@ namespace StudentAI
             if (moveToCheck.To.X == moveToCheck.From.X && moveToCheck.To.Y == moveToCheck.From.Y)
                 return false;
 
-            //TODO Check if the colorOfPlayerMoving is in CHECK after this move
+            // Check if the colorOfPlayerMoving is in CHECK after this move
             var newBoard = boardBeforeMove.Clone();
-            newBoard[moveToCheck.From.X, moveToCheck.From.Y] = ChessPiece.Empty;
-            newBoard[moveToCheck.To.X, moveToCheck.To.Y] = piece;
+            newBoard.MakeMove(moveToCheck);
             if (IsKingInCheck(newBoard, colorOfPlayerMoving))
                 return false;
 
