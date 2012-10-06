@@ -24,39 +24,67 @@ namespace StudentAI
         /// <returns>true if valid move, false is invalid</returns>
         public static bool WhiteKing(ChessBoard board, ChessMove move)
         {
-            //TODO NOT DONE, still need to finish this
             //validate the move is still on the board as well as
             //  ensure new move is onto an enemy piece or empty space
             if (!OnBoardAndKillOrEmpty(move.To.X, move.To.Y,board,ChessColor.White))
                 return false;
 
-            //validate it doesn't put self into check
-            //VS2012 test, git test
+            //validate the move is only one space away for a king
+            if (Math.Abs(move.To.X - move.From.X) > 1 || Math.Abs(move.To.Y - move.From.Y) > 1)
+                return false;
+
+            //TODO validate it doesn't put self into check
 
 
             //if all checks pass then
             return true;
         }
 
-        private static bool checkEmpty(int X, int Y, ChessBoard board)
+
+        /// <summary>
+        /// Checks if the move the black king wants to make is valid
+        /// </summary>
+        /// <param name="board">board state before move</param>
+        /// <param name="move">move the piece wants to make</param>
+        /// <returns>true if valid move, false is invalid</returns>
+        public static bool BlackKing(ChessBoard board, ChessMove move)
         {
-            if (board[X, Y] == ChessPiece.Empty)
+            //validate the move is still on the board as well as
+            //  ensure new move is onto an enemy piece or empty space
+            if (!OnBoardAndKillOrEmpty(move.To.X, move.To.Y, board, ChessColor.Black))
+                return false;
+
+            //validate the move is only one space away for a king
+            if (Math.Abs(move.To.X - move.From.X) > 1 || Math.Abs(move.To.Y - move.From.Y) > 1)
+                return false;
+
+            //TODO validate it doesn't put self into check
+
+
+            //if all checks pass then
+            return true;
+        }
+
+        //easy enough to just use inline check for this instead of calling a function
+        /*private static bool CheckEmpty(int x, int y, ChessBoard board)
+        {
+            if (board[x, y] == ChessPiece.Empty)
                 return true;
             return false;
-        }
+        }*/
 
 
         //checks if the move is still located on the board & is moved onto empty or kill spot
-        private static bool OnBoardAndKillOrEmpty(int X, int Y,ChessBoard board,ChessColor color)
+        private static bool OnBoardAndKillOrEmpty(int x, int y,ChessBoard board,ChessColor color)
         {
-            if (X > 8 || X < 0 || Y > 8 || Y < 0)
+            if (x > 8 || x < 0 || y > 8 || y < 0)
                 return false;
 
-            if(board[X,Y] == ChessPiece.Empty)
+            if(board[x,y] == ChessPiece.Empty)
             {
                 if(color==ChessColor.White)
                 {
-                    switch (board[X,Y])
+                    switch (board[x,y])
                     {
                         case ChessPiece.BlackPawn:
                         case ChessPiece.BlackKnight:
@@ -69,9 +97,9 @@ namespace StudentAI
                             return false;
                     }
                 }
-                else if(color==ChessColor.Black)
+                if(color==ChessColor.Black)
                 {
-                    switch (board[X, Y])
+                    switch (board[x, y])
                     {
                         case ChessPiece.WhiteBishop:
                         case ChessPiece.WhiteKing:
