@@ -116,5 +116,23 @@ namespace StudentAI
 
             return true;
         }
+        private static bool indanger(int x, int y, ChessBoard board, ChessColor color)
+        {
+            if (color == ChessColor.White)
+            {
+                if (board[x - 1, y - 1] == ChessPiece.BlackPawn || board[x + 1, y - 1] == ChessPiece.BlackPawn)
+                    return true;
+
+
+            }
+            if (color == ChessColor.Black)
+            {
+
+
+
+
+            }
+
+        }
     }
 }
