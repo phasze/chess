@@ -261,7 +261,6 @@ namespace StudentAI
             internal short AttackedValue;
             internal short DefendedValue;
 
-            internal int LastValidMoveCount;
             internal bool Moved;
 
             internal bool Selected;
@@ -278,8 +277,6 @@ namespace StudentAI
                 PieceValue = piece.PieceValue;
                 PieceActionValue = piece.PieceActionValue;
 
-                if (piece.ValidMoves != null)
-                    LastValidMoveCount = piece.ValidMoves.Count;
             }
 
             internal Piece(ChessPiece chessPiece, ChessColor chessPieceColor)
