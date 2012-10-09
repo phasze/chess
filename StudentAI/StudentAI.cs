@@ -30,8 +30,12 @@ namespace StudentAI
         /// <returns> Returns the best chess move the player has for the given chess board</returns>
         public ChessMove GetNextMove(ChessBoard board, ChessColor myColor)
         {
+            List<ChessMove> allmoves = new List<ChessMove>();
+            allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             //this is where most of our work will be... :'(
-            throw (new NotImplementedException());
+         //   throw (new NotImplementedException());
+            return allmoves[0];
+            int x = 1;
         }
 
         /// <summary>
@@ -143,9 +147,9 @@ namespace StudentAI
             int kingY = -1;
 
             //populate the enemyTeam list with all enemy pieces
-            for(int x=0;x<8;x++)
+            for(int x=0;x<7;x++)
             {
-                for(int y=0;y<8;y++)
+                for(int y=0;y<7;y++)
                 {
                     if (colorOfKingToCheck == ChessColor.White)
                     {
@@ -245,8 +249,6 @@ namespace StudentAI
             }
             return false;
         }
-
-
 
         internal sealed class Piece
         {
@@ -433,5 +435,7 @@ namespace StudentAI
         /// <param name="message"></param>
         public AISetDecisionTreeCallback SetDecisionTree { get; set; }
         #endregion
+
+       
     }
 }

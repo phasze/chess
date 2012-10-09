@@ -14,20 +14,44 @@ namespace StudentAI
         /// <summary>
         /// gets a list of available moves for a color
         /// </summary>
-        public List<ChessMove> getmovesofcolor(ChessColor color, ChessBoard board)
+        public static List<ChessMove> getmovesofcolor(StudentAI ai, ChessColor color, ChessBoard board)
         {
             List<ChessMove> colormoves = new List<ChessMove>();
-            for (int x = 0; x < 8; x++)
+            for (int y = 0; y < 8; y++)
             {
-                for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++)
                 {
-                    if (color == ChessColor.White)
-                    {
-
-                    }
                     if (color == ChessColor.Black)
                     {
-
+                        switch (board[x, y])
+                        {
+                            case ChessPiece.BlackPawn:
+                            case ChessPiece.BlackKnight:
+                            case ChessPiece.BlackBishop:
+                            case ChessPiece.BlackQueen:
+                            case ChessPiece.BlackRook:
+                            case ChessPiece.BlackKing:
+                                colormoves.AddRange(getmovesofpiece(ai, color, board, new ChessLocation(x, y)));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (color == ChessColor.White)
+                    {
+                        switch (board[x, y])
+                        {
+                            case ChessPiece.WhitePawn:
+                            case ChessPiece.WhiteKnight:
+                            case ChessPiece.WhiteBishop:
+                            case ChessPiece.WhiteQueen:
+                            case ChessPiece.WhiteRook:
+                            case ChessPiece.WhiteKing:
+                                colormoves.AddRange(getmovesofpiece(ai, color, board, new ChessLocation(x, y)));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
@@ -37,7 +61,7 @@ namespace StudentAI
         /// <summary>
         /// gets move for a specfic piece
         /// </summary>
-        public List<ChessMove> getmovesofpiece(StudentAI ai,ChessColor color, ChessBoard board,ChessLocation location)
+        public static List<ChessMove> getmovesofpiece(StudentAI ai,ChessColor color, ChessBoard board,ChessLocation location)
         {
             List<ChessMove> piecemoves = new List<ChessMove>();
             ChessMove move = new ChessMove(location,location);
