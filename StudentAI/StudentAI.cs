@@ -30,8 +30,12 @@ namespace StudentAI
         /// <returns> Returns the best chess move the player has for the given chess board</returns>
         public ChessMove GetNextMove(ChessBoard board, ChessColor myColor)
         {
+            List<ChessMove> allmoves = new List<ChessMove>();
+            allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             //this is where most of our work will be... :'(
-            throw (new NotImplementedException());
+         //   throw (new NotImplementedException());
+            return allmoves[0];
+            int x = 1;
         }
 
         /// <summary>
@@ -143,9 +147,9 @@ namespace StudentAI
             int kingY = -1;
 
             //populate the enemyTeam list with all enemy pieces
-            for(int x=0;x<8;x++)
+            for(int x=0;x<7;x++)
             {
-                for(int y=0;y<8;y++)
+                for(int y=0;y<7;y++)
                 {
                     if (colorOfKingToCheck == ChessColor.White)
                     {
@@ -246,8 +250,142 @@ namespace StudentAI
             return false;
         }
 
+        internal sealed class Piece
+        {
+            #region InternalMembers
+
+            internal ChessColor PieceColor;
+            internal ChessPiece PieceType;
+
+            internal short PieceValue;
+            internal short PieceActionValue;
+
+            internal short AttackedValue;
+            internal short DefendedValue;
+
+            internal bool Moved;
+
+            internal bool Selected;
+
+            #endregion
+
+            #region Constructors
+
+            internal Piece(Piece piece)
+            {
+                PieceColor = piece.PieceColor;
+                PieceType = piece.PieceType;
+                Moved = piece.Moved;
+                PieceValue = piece.PieceValue;
+                PieceActionValue = piece.PieceActionValue;
+
+            }
+
+            internal Piece(ChessPiece chessPiece, ChessColor chessPieceColor)
+            {
+                PieceType = chessPiece;
+                PieceColor = chessPieceColor;
 
 
+                PieceValue = CalculatePieceValue(PieceType);
+                PieceActionValue = CalculatePieceActionValue(PieceType);
+            }
+
+            #endregion
+
+            #region PrivateMethods
+
+            private static short CalculatePieceValue(ChessPiece pieceType)
+            {
+                switch (pieceType)
+                {
+                    case ChessPiece.BlackPawn:
+                    case ChessPiece.WhitePawn:
+                        {
+                            return 100;
+
+                        }
+                    case ChessPiece.BlackKnight:
+                    case ChessPiece.WhiteKnight:
+                        {
+                            return 320;
+                        }
+                    case ChessPiece.BlackBishop:
+                    case ChessPiece.WhiteBishop:
+                        {
+                            return 325;
+                        }
+                    case ChessPiece.BlackRook:
+                    case ChessPiece.WhiteRook:
+                        {
+                            return 500;
+                        }
+
+                    case ChessPiece.BlackQueen:
+                    case ChessPiece.WhiteQueen:
+                        {
+                            return 975;
+                        }
+
+                    case ChessPiece.BlackKing:
+                    case ChessPiece.WhiteKing:
+                        {
+                            return 3000;
+                        }
+                    default:
+                        {
+                            return 0;
+                        }
+                }
+            }
+
+
+            private static short CalculatePieceActionValue(ChessPiece pieceType)
+            {
+                switch (pieceType)
+                {
+                    case ChessPiece.BlackPawn:
+                    case ChessPiece.WhitePawn:
+                        {
+                            return 6;
+
+                        }
+                    case ChessPiece.BlackKnight:
+                    case ChessPiece.WhiteKnight:
+                        {
+                            return 3;
+                        }
+                    case ChessPiece.BlackBishop:
+                    case ChessPiece.WhiteBishop:
+                        {
+                            return 3;
+                        }
+                    case ChessPiece.BlackRook:
+                    case ChessPiece.WhiteRook:
+                        {
+                            return 2;
+                        }
+
+                    case ChessPiece.BlackQueen:
+                    case ChessPiece.WhiteQueen:
+                        {
+                            return 1;
+                        }
+
+                    case ChessPiece.BlackKing:
+                    case ChessPiece.WhiteKing:
+                        {
+                            return 1;
+                        }
+                    default:
+                        {
+                            return 0;
+                        }
+                }
+            }
+
+            #endregion
+        }
 
 
 
@@ -297,5 +435,7 @@ namespace StudentAI
         /// <param name="message"></param>
         public AISetDecisionTreeCallback SetDecisionTree { get; set; }
         #endregion
+
+       
     }
 }
