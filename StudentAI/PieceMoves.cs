@@ -46,6 +46,7 @@ namespace StudentAI
                 case ChessPiece.BlackPawn:
                     ChessMove bdiag1 = new ChessMove(location,new ChessLocation((location.X)-1,(location.Y)+1));
                     ChessMove bdown = new ChessMove(location,new ChessLocation((location.X),(location.Y)+1));
+                    ChessMove bdown2 = new ChessMove(location, new ChessLocation((location.X), (location.Y) + 2));
                     ChessMove bdiag2 = new ChessMove(location,new ChessLocation((location.X)+1,(location.Y)+1));
                     if (ai.IsValidMove(board, bdiag1, color))
                         piecemoves.Add(bdiag1);
@@ -53,10 +54,13 @@ namespace StudentAI
                         piecemoves.Add(bdown);
                     if (ai.IsValidMove(board, bdiag2, color))
                         piecemoves.Add(bdiag2);
+                    if (ai.IsValidMove(board, bdown2, color))
+                        piecemoves.Add(bdown2);
                     break;
                 case ChessPiece.WhitePawn:
                     ChessMove wdiag1 = new ChessMove(location,new ChessLocation((location.X)-1,(location.Y)-1));
                     ChessMove wup = new ChessMove(location,new ChessLocation((location.X),(location.Y)-1));
+                    ChessMove wup2 = new ChessMove(location, new ChessLocation((location.X), (location.Y) - 2));
                     ChessMove wdiag2 = new ChessMove(location,new ChessLocation((location.X)+1,(location.Y)-1));
                     if (ai.IsValidMove(board, wdiag1, color))
                         piecemoves.Add(wdiag1);
@@ -64,6 +68,8 @@ namespace StudentAI
                         piecemoves.Add(wup);
                     if (ai.IsValidMove(board, wdiag2, color))
                         piecemoves.Add(wdiag2);
+                    if (ai.IsValidMove(board, wup2, color))
+                        piecemoves.Add(wup2);
                     break;
                 case ChessPiece.BlackKing:
                     for (int i = -1; i < 2; i++)
@@ -138,6 +144,181 @@ namespace StudentAI
                     move = new ChessMove(location, new ChessLocation(location.X + -1, location.Y + -2));
                     if (ai.IsValidMove(board, move, color))
                         piecemoves.Add(move);
+                    break;
+                case ChessPiece.BlackBishop:
+                case ChessPiece.WhiteBishop:
+                    bool flag = true;
+                    int x = 1;
+                    while(flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X + x, location.Y + x));
+                        if(ai.IsValidMove(board,move,color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X + x, location.Y - x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X - x, location.Y - x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X - x, location.Y + x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    break;
+                case ChessPiece.BlackRook:
+                case ChessPiece.WhiteRook:
+                    flag = true;
+                    x = 1;
+                    while(flag)
+                    {
+                      move = new ChessMove(location, new ChessLocation(location.X + x, location.Y));
+                      if (ai.IsValidMove(board, move, color))
+                          piecemoves.Add(move);
+                      else
+                          flag = false;
+                      x++;
+                    }
+                    flag = true;
+                    while(flag)
+                    {
+                      move = new ChessMove(location, new ChessLocation(location.X - x, location.Y));
+                      if (ai.IsValidMove(board, move, color))
+                          piecemoves.Add(move);
+                      else
+                          flag = false;
+                      x++;
+                    }
+                    flag = true;
+                    while(flag)
+                    {
+                      move = new ChessMove(location, new ChessLocation(location.X, location.Y+x));
+                      if (ai.IsValidMove(board, move, color))
+                          piecemoves.Add(move);
+                      else
+                          flag = false;
+                      x++;
+                    }
+                    flag = true;
+                    while(flag)
+                    {
+                      move = new ChessMove(location, new ChessLocation(location.X, location.Y-x));
+                      if (ai.IsValidMove(board, move, color))
+                          piecemoves.Add(move);
+                      else
+                          flag = false;
+                      x++;
+                    }
+                    flag = true;
+                    break;
+                case ChessPiece.BlackQueen:
+                case ChessPiece.WhiteQueen:
+                    flag = true;
+                    x = 1;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X + x, location.Y + x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X + x, location.Y - x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X - x, location.Y - x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X - x, location.Y + x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    x = 1;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X + x, location.Y));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X - x, location.Y));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X, location.Y + x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
+                    while (flag)
+                    {
+                        move = new ChessMove(location, new ChessLocation(location.X, location.Y - x));
+                        if (ai.IsValidMove(board, move, color))
+                            piecemoves.Add(move);
+                        else
+                            flag = false;
+                        x++;
+                    }
+                    flag = true;
                     break;
                 default:
                     return piecemoves;

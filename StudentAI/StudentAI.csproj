@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PieceMoves.cs" />
     <Compile Include="StudentAI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VaidateMove.cs" />
