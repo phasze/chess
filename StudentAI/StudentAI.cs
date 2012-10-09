@@ -34,6 +34,17 @@ namespace StudentAI
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             //this is where most of our work will be... :'(
          //   throw (new NotImplementedException());
+
+            //TODO sort allmoves based upon heuristic function
+            //return move with best number
+
+            //TODO change allmoves[0] here
+            //check if opponent is in checkmate
+            ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
+            if (allmoves[0].Flag == ChessFlag.Check)
+                if (PieceMoves.getmovesofcolor(this, oppositeColor, board).Count == 0)
+                    allmoves[0].Flag = ChessFlag.Checkmate;
+
             return allmoves[0];
             int x = 1;
         }
@@ -47,6 +58,7 @@ namespace StudentAI
         /// <returns>Returns true if the move was valid</returns>
         public bool IsValidMove(ChessBoard boardBeforeMove, ChessMove moveToCheck, ChessColor colorOfPlayerMoving)
         {
+
             //possibly switch through pieces to validate the move
             var piece = boardBeforeMove[moveToCheck.From.X, moveToCheck.From.Y];
 
@@ -64,7 +76,17 @@ namespace StudentAI
             if (IsKingInCheck(newBoard, colorOfPlayerMoving))
                 return false;
 
+            //if they say it's check let's make sure
+            if (moveToCheck.Flag == ChessFlag.Check)
+                if (!IsKingInCheck(newBoard, colorOfPlayerMoving == ChessColor.Black ? ChessColor.White : ChessColor.Black))
+                    return false;
+
             //validate color of player moving is the color of the chess piece
+
+            //if they say checkmate but it's actually not
+            if (moveToCheck.Flag == ChessFlag.Checkmate)
+                if (PieceMoves.getmovesofcolor(this, colorOfPlayerMoving == ChessColor.Black ? ChessColor.White : ChessColor.Black, newBoard).Count != 0)
+                    return false;
 
             switch(piece)
             {
@@ -131,6 +153,7 @@ namespace StudentAI
                 default:
                     return false;
             }
+
 
         }
 
