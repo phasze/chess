@@ -47,7 +47,7 @@ namespace StudentAI
             var piece = boardBeforeMove[moveToCheck.From.X, moveToCheck.From.Y];
 
             //if the piece tried to move off the board...
-            if (moveToCheck.To.X > 8 || moveToCheck.To.X < 0 || moveToCheck.To.Y > 8 || moveToCheck.To.Y < 0)
+            if (moveToCheck.To.X > 7 || moveToCheck.To.X < 0 || moveToCheck.To.Y > 7 || moveToCheck.To.Y < 0)
                 return false;
 
             //if it didn't move at all
