@@ -1,0 +1,6 @@
+#everything
+*
+
+# not these files
+!*.cs
+!*.gitignore
