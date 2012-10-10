@@ -182,6 +182,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -192,6 +193,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -202,6 +204,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -226,6 +229,7 @@ namespace StudentAI
                           flag = false;
                       x++;
                     }
+                    x = 1;
                     flag = true;
                     while(flag)
                     {
@@ -236,6 +240,7 @@ namespace StudentAI
                           flag = false;
                       x++;
                     }
+                    x = 1;
                     flag = true;
                     while(flag)
                     {
@@ -246,6 +251,7 @@ namespace StudentAI
                           flag = false;
                       x++;
                     }
+                    x = 1;
                     flag = true;
                     while(flag)
                     {
@@ -256,7 +262,6 @@ namespace StudentAI
                           flag = false;
                       x++;
                     }
-                    flag = true;
                     break;
                 case ChessPiece.BlackQueen:
                 case ChessPiece.WhiteQueen:
