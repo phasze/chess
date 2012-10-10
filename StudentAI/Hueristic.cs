@@ -31,9 +31,9 @@ namespace StudentAI
                 for(int y=0;y<8;y++)
                 {
                     if (colorOfEnemyTeam == ChessColor.Black && board[x, y] < ChessPiece.Empty) //if black
-                        score++;
-                    else if (colorOfEnemyTeam == ChessColor.White && board[x, y] > ChessPiece.Empty) //if black
-                        score++;
+                        score+=StudentAI.Piece.CalculatePieceValue(board[x,y]);
+                    else if (colorOfEnemyTeam == ChessColor.White && board[x, y] > ChessPiece.Empty) //if white
+                        score += StudentAI.Piece.CalculatePieceValue(board[x, y]);
                 }
             }
 

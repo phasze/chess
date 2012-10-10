@@ -295,7 +295,7 @@ namespace StudentAI
             return false;
         }
 
-        internal sealed class Piece
+        public class Piece
         {
             #region InternalMembers
 
@@ -340,7 +340,7 @@ namespace StudentAI
 
             #region PrivateMethods
 
-            private static short CalculatePieceValue(ChessPiece pieceType)
+            public static short CalculatePieceValue(ChessPiece pieceType)
             {
                 switch (pieceType)
                 {
@@ -385,7 +385,7 @@ namespace StudentAI
             }
 
 
-            private static short CalculatePieceActionValue(ChessPiece pieceType)
+            public static short CalculatePieceActionValue(ChessPiece pieceType)
             {
                 switch (pieceType)
                 {
