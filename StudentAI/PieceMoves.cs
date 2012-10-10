@@ -271,6 +271,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -281,6 +282,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -291,6 +293,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -301,6 +304,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     x = 1;
                     while (flag)
@@ -312,6 +316,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -322,6 +327,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -332,6 +338,7 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
+                    x = 1;
                     flag = true;
                     while (flag)
                     {
@@ -342,7 +349,6 @@ namespace StudentAI
                             flag = false;
                         x++;
                     }
-                    flag = true;
                     break;
                 default:
                     return piecemoves;
