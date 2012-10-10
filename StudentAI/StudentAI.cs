@@ -64,7 +64,6 @@ namespace StudentAI
                     allmoves[index].Flag = ChessFlag.Checkmate;
 
             return allmoves[index];
-            int x = 1;
         }
 
         /// <summary>
