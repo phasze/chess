@@ -54,8 +54,8 @@ namespace StudentAI
                 HueristicMoves.Add(new Hueristic(board, move, oppositeColor));
             }
 
-            HueristicMoves.Sort((x, y) => x.HValue);
-
+            HueristicMoves.Sort((x, y) => x.HValue.CompareTo(y.HValue));
+            
             //TODO change allmoves[0] here
             //check if opponent is in checkmate
             if (allmoves.Count == 0)
@@ -67,8 +67,12 @@ namespace StudentAI
             }
             //var index = rand.Next(0, allmoves.Count);
             var index = 0;
+            if (HueristicMoves[0].HValue == HueristicMoves[HueristicMoves.Count - 1].HValue)
+            {
+                index = rand.Next(0, HueristicMoves.Count);
+            }
             if (HueristicMoves[index].TheMove.Flag == ChessFlag.Check)
-                if (PieceMoves.getmovesofcolor(this, oppositeColor, board).Count == 0)
+                if (PieceMoves.getmovesofcolor(this, oppositeColor, HueristicMoves[index].BoardAfterMove).Count == 0)
                     HueristicMoves[index].TheMove.Flag = ChessFlag.Checkmate;
 
             return HueristicMoves[index].TheMove;

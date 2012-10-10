@@ -9,11 +9,11 @@ namespace StudentAI
     class Hueristic
     {
         public ChessBoard BoardAfterMove = null;
-        public static ChessMove TheMove=null;
+        public ChessMove TheMove=null;
         public int HValue = 0;
         public Hueristic(ChessBoard board, ChessMove move, ChessColor colorofEnemy)
         {
-            BoardAfterMove = board;
+            BoardAfterMove = board.Clone();
             BoardAfterMove.MakeMove(move);
             TheMove = move;
             HValue = CalculateHueristicBasic(BoardAfterMove, colorofEnemy);
@@ -25,7 +25,7 @@ namespace StudentAI
         /// <param name="board"></param>
         /// <param name="colorOfEnemyTeam"></param>
         /// <returns></returns>
-        static int CalculateHueristicBasic(ChessBoard board, ChessColor colorOfEnemyTeam)
+        int CalculateHueristicBasic(ChessBoard board, ChessColor colorOfEnemyTeam)
         {
             int score = 0;
             for(int x=0;x<8;x++)
