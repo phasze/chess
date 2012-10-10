@@ -35,10 +35,6 @@ namespace StudentAI
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             List<Hueristic> HueristicMoves = new List<Hueristic>();
             //this is where most of our work will be... :'(
-         //   throw (new NotImplementedException());
-
-            //TODO sort allmoves based upon heuristic function
-            //return move with best number
 
             ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
 
@@ -56,8 +52,6 @@ namespace StudentAI
 
             HueristicMoves.Sort((x, y) => x.HValue.CompareTo(y.HValue));
             
-            //TODO change allmoves[0] here
-            //check if opponent is in checkmate
             if (allmoves.Count == 0)
             {
                 var game_over = new ChessMove(new ChessLocation(0, 0), new ChessLocation(0, 0));
@@ -71,6 +65,7 @@ namespace StudentAI
             {
                 index = rand.Next(0, HueristicMoves.Count);
             }
+            //check if opponent is in checkmate
             if (HueristicMoves[index].TheMove.Flag == ChessFlag.Check)
                 if (PieceMoves.getmovesofcolor(this, oppositeColor, HueristicMoves[index].BoardAfterMove).Count == 0)
                     HueristicMoves[index].TheMove.Flag = ChessFlag.Checkmate;

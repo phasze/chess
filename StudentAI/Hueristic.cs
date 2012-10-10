@@ -16,7 +16,7 @@ namespace StudentAI
             BoardAfterMove = board.Clone();
             BoardAfterMove.MakeMove(move);
             TheMove = move;
-            HValue = CalculateHueristicBasic(BoardAfterMove, colorofEnemy);
+            HValue = CalculateHueristicBasic(board,colorofEnemy);
         }
 
         /// <summary>
@@ -32,14 +32,14 @@ namespace StudentAI
             {
                 for(int y=0;y<8;y++)
                 {
-                    if (colorOfEnemyTeam == ChessColor.Black && board[x, y] < ChessPiece.Empty) //if black
-                        score+=StudentAI.Piece.CalculatePieceValue(board[x,y]) + StudentAI.Piece.CalculatePieceActionValue(board[TheMove.To.X,TheMove.To.Y]);
-                    else if (colorOfEnemyTeam == ChessColor.White && board[x, y] > ChessPiece.Empty) //if white
-                        score += StudentAI.Piece.CalculatePieceValue(board[x, y]) + StudentAI.Piece.CalculatePieceActionValue(board[TheMove.To.X, TheMove.To.Y]);
+                    if (colorOfEnemyTeam == ChessColor.Black && BoardAfterMove[x, y] < ChessPiece.Empty) //if black
+                        score += StudentAI.Piece.CalculatePieceValue(BoardAfterMove[x, y]);
+                    else if (colorOfEnemyTeam == ChessColor.White && BoardAfterMove[x, y] > ChessPiece.Empty) //if white
+                        score += StudentAI.Piece.CalculatePieceValue(BoardAfterMove[x, y]);
                 }
             }
 
-            return score;
+            return score - StudentAI.Piece.CalculatePieceActionValue(board[TheMove.From.X, TheMove.From.Y]);
 
         }
     }
