@@ -54,8 +54,8 @@ namespace StudentAI
             
             if (allmoves.Count == 0)
             {
-                var game_over = new ChessMove(new ChessLocation(0, 0), new ChessLocation(0, 0));
-                game_over.Flag = ChessFlag.Checkmate;
+                var game_over = new ChessMove(null, null);
+                game_over.Flag = ChessFlag.Stalemate;
                 return game_over;
                 
             }
