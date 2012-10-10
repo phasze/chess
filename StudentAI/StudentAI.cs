@@ -33,24 +33,31 @@ namespace StudentAI
         {
             List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
+            List<Hueristic> HueristicMoves = new List<Hueristic>();
             //this is where most of our work will be... :'(
          //   throw (new NotImplementedException());
 
             //TODO sort allmoves based upon heuristic function
             //return move with best number
 
+            ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
+
             //TODO possibly temorary, but set the check flag
             foreach (var move in allmoves)
             {
                 var tempBoard = board.Clone();
                 tempBoard.MakeMove(move);
-                if(IsKingInCheck(tempBoard,myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black))
-                    move.Flag=ChessFlag.Check;
+
+                if (IsKingInCheck(tempBoard, oppositeColor))
+                    move.Flag = ChessFlag.Check;
+
+                HueristicMoves.Add(new Hueristic(board, move, oppositeColor));
             }
+
+            HueristicMoves.Sort((x, y) => x.HValue);
 
             //TODO change allmoves[0] here
             //check if opponent is in checkmate
-            ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
             if (allmoves.Count == 0)
             {
                 var game_over = new ChessMove(new ChessLocation(0, 0), new ChessLocation(0, 0));
@@ -58,12 +65,13 @@ namespace StudentAI
                 return game_over;
                 
             }
-            var index = rand.Next(0, allmoves.Count);
-            if (allmoves[index].Flag == ChessFlag.Check)
+            //var index = rand.Next(0, allmoves.Count);
+            var index = 0;
+            if (HueristicMoves[index].TheMove.Flag == ChessFlag.Check)
                 if (PieceMoves.getmovesofcolor(this, oppositeColor, board).Count == 0)
-                    allmoves[index].Flag = ChessFlag.Checkmate;
+                    HueristicMoves[index].TheMove.Flag = ChessFlag.Checkmate;
 
-            return allmoves[index];
+            return HueristicMoves[index].TheMove;
         }
 
         /// <summary>
