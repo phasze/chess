@@ -39,6 +39,15 @@ namespace StudentAI
             //TODO sort allmoves based upon heuristic function
             //return move with best number
 
+            //TODO possibly temorary, but set the check flag
+            foreach (var move in allmoves)
+            {
+                var tempBoard = board.Clone();
+                tempBoard.MakeMove(move);
+                if(IsKingInCheck(tempBoard,myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black))
+                    move.Flag=ChessFlag.Check;
+            }
+
             //TODO change allmoves[0] here
             //check if opponent is in checkmate
             ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
