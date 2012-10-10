@@ -133,7 +133,7 @@ namespace StudentAI
                     return VaidateMove.WhiteBishop(boardBeforeMove, moveToCheck);
 
                 case ChessPiece.BlackKing:
-                    if (colorOfPlayerMoving != ChessColor.White)
+                    if (colorOfPlayerMoving != ChessColor.Black)
                         return false;
                     return VaidateMove.BlackKing(boardBeforeMove, moveToCheck);
 
