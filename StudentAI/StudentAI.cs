@@ -8,6 +8,7 @@ namespace StudentAI
     public class StudentAI : IChessAI
     {
         #region IChessAI Members that are implemented by the Student
+        Random rand = new Random();
 
         /// <summary>
         /// The name of your AI
@@ -41,11 +42,19 @@ namespace StudentAI
             //TODO change allmoves[0] here
             //check if opponent is in checkmate
             ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
-            if (allmoves[0].Flag == ChessFlag.Check)
+            if (allmoves.Count == 0)
+            {
+                var game_over = new ChessMove(new ChessLocation(0, 0), new ChessLocation(0, 0));
+                game_over.Flag = ChessFlag.Checkmate;
+                return game_over;
+                
+            }
+            var index = rand.Next(0, allmoves.Count);
+            if (allmoves[index].Flag == ChessFlag.Check)
                 if (PieceMoves.getmovesofcolor(this, oppositeColor, board).Count == 0)
-                    allmoves[0].Flag = ChessFlag.Checkmate;
+                    allmoves[index].Flag = ChessFlag.Checkmate;
 
-            return allmoves[0];
+            return allmoves[index];
             int x = 1;
         }
 
@@ -73,7 +82,10 @@ namespace StudentAI
             // Check if the colorOfPlayerMoving is in CHECK after this move
             var newBoard = boardBeforeMove.Clone();
             newBoard.MakeMove(moveToCheck);
-            if (IsKingInCheck(newBoard, colorOfPlayerMoving))
+            //bloody taking away the king breaks stuff in my iskingincheck function
+            if (boardBeforeMove[moveToCheck.To.X,moveToCheck.To.Y]==ChessPiece.BlackKing ||
+                boardBeforeMove[moveToCheck.To.X, moveToCheck.To.Y] == ChessPiece.WhiteKing ||
+                IsKingInCheck(newBoard, colorOfPlayerMoving))
                 return false;
 
             //if they say it's check let's make sure
@@ -214,6 +226,8 @@ namespace StudentAI
                     }
                 }
             }
+            if(kingX==-1 || kingY==-1)
+                throw new Exception("King not found...");
 
             //try and kill the king
             foreach (var chessPiece in enemyTeam)
