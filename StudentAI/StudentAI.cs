@@ -59,6 +59,28 @@ namespace StudentAI
                     HueristicMoves[HueristicMoves.Count - 1].HValue = 0;
             }
 
+            /////////////////////////////////////////////
+            ///lets try and beat greedy with 1 ply
+            foreach (var hueristicMove in HueristicMoves)
+            {
+                //enemyBoard.MakeMove(enemyBestMove);
+                var current_hp = new Hueristic(board, hueristicMove.TheMove, myColor).HValue;
+                //var hval = new Hueristic(hueristicMove.BoardAfterMove, GetNextMove(hueristicMove.BoardAfterMove, oppositeColor), myColor).HValue;
+                var enemyMoves = PieceMoves.getmovesofcolor(this, oppositeColor, hueristicMove.BoardAfterMove);
+                List<Hueristic> new_huer = new List<Hueristic>();
+                foreach (var enemy in enemyMoves)
+                {
+                    new_huer.Add(new Hueristic(hueristicMove.BoardAfterMove, enemy, myColor));
+                }
+                new_huer.Sort((x, y) => x.HValue.CompareTo(y.HValue));
+
+                if (new_huer.Count>0 && current_hp < new_huer[0].HValue)
+                {
+                    hueristicMove.HValue += 700;
+                }
+            }
+            /// /////////////////////////////////////////
+            
             HueristicMoves.Sort((x, y) => x.HValue.CompareTo(y.HValue));
             
             //stalemate
@@ -71,6 +93,8 @@ namespace StudentAI
             }
             //var index = rand.Next(0, allmoves.Count);
             var index = 0;
+
+
             if (HueristicMoves[0].HValue == HueristicMoves[HueristicMoves.Count - 1].HValue)
             {
                 index = rand.Next(0, HueristicMoves.Count);
