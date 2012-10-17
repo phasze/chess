@@ -34,6 +34,9 @@ namespace StudentAI
             List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             List<Hueristic> HueristicMoves = new List<Hueristic>();
+            //DecisionTree descisions = new DecisionTree(board);
+            //descisions.
+
             //this is where most of our work will be... :'(
 
             ChessColor oppositeColor = myColor == ChessColor.Black ? ChessColor.White : ChessColor.Black;
