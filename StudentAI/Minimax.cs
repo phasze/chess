@@ -7,5 +7,7 @@ namespace StudentAI
 {
     class Minimax
     {
+
+        // for all moves call minimax with depth -1 with that move to other color
     }
 }
