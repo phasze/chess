@@ -53,8 +53,8 @@ namespace StudentAI
                 ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth - 1); //get best move of the other color
 
                 //TODO this will call a null move if checkmate or no moves, needs fixing
-
-                tempBoard.MakeMove(oppositemove); //update the board with the new move
+                if (oppositemove.To == null && oppositemove.From == null)
+                    tempBoard.MakeMove(oppositemove); //update the board with the new move
                 var oppositemovehueristic = new Hueristic(tempBoard, color); // calculate the score of the board
                 hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
                 updatedhueristic.Add(hmove); // add new scored hueristic to new list
