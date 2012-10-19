@@ -24,7 +24,7 @@ namespace StudentAI
             BoardAfterMove = board.Clone();
             BoardAfterMove.MakeMove(move);
             TheMove = move;
-            HValue = CalculateHueristicAdvanced(board, colorofEnemy);
+            HValue = CalculateHueristicBasic(board, colorofEnemy);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace StudentAI
         public Hueristic(ChessBoard board, ChessColor colorofMyTeam)
         {
             BoardBeforeMove = board.Clone();
-            HValue = CalculateBoardHP(board, colorofMyTeam);
+            HValue = CalculateHueristicAdvanced(board, colorofMyTeam);
         }
         /// <summary>
         /// The lower the number returned the better off you are
