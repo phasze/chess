@@ -35,7 +35,8 @@ namespace StudentAI
         public Hueristic(ChessBoard board, ChessColor colorofMyTeam)
         {
             BoardBeforeMove = board.Clone();
-            HValue = CalculateHueristicAdvanced(board, colorofMyTeam);
+            //BoardAfterMove = board.Clone();
+            HValue = CalculateHueristicAdvanced(colorofMyTeam);
         }
         /// <summary>
         /// The lower the number returned the better off you are
@@ -68,7 +69,7 @@ namespace StudentAI
         /// <param name="board"></param>
         /// <param name="colorOfEnemyTeam"></param>
         /// <returns></returns>
-        int CalculateHueristicAdvanced(ChessBoard board, ChessColor colorOfEnemyTeam)
+        int CalculateHueristicAdvanced(ChessColor colorOfEnemyTeam)
         {
             int scoreB = 0;
             int scoreW = 0;
@@ -76,10 +77,10 @@ namespace StudentAI
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if (colorOfEnemyTeam == ChessColor.Black && BoardAfterMove[x, y] < ChessPiece.Empty) //if black
-                        scoreB += StudentAI.Piece.CalculatePieceValue(BoardAfterMove[x, y]);
-                    else if (colorOfEnemyTeam == ChessColor.White && BoardAfterMove[x, y] > ChessPiece.Empty) //if white
-                        scoreW += StudentAI.Piece.CalculatePieceValue(BoardAfterMove[x, y]);
+                    if (colorOfEnemyTeam == ChessColor.Black && BoardBeforeMove[x, y] < ChessPiece.Empty) //if black
+                        scoreB += StudentAI.Piece.CalculatePieceValue(BoardBeforeMove[x, y]);
+                    else if (colorOfEnemyTeam == ChessColor.White && BoardBeforeMove[x, y] > ChessPiece.Empty) //if white
+                        scoreW += StudentAI.Piece.CalculatePieceValue(BoardBeforeMove[x, y]);
                 }
             }
 
