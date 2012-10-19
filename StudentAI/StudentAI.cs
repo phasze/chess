@@ -31,6 +31,9 @@ namespace StudentAI
         /// <returns> Returns the best chess move the player has for the given chess board</returns>
         public ChessMove GetNextMove(ChessBoard board, ChessColor myColor)
         {
+            Minimax myminimax = new Minimax();
+            var minmaxmove = myminimax.getMinimax(this, board, myColor, 4);
+            return minmaxmove;
             List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             List<Hueristic> HueristicMoves = new List<Hueristic>();
@@ -219,7 +222,7 @@ namespace StudentAI
 
         #endregion
 
-        private bool IsKingInCheck(ChessBoard board, ChessColor colorOfKingToCheck)
+        public static bool IsKingInCheck(ChessBoard board, ChessColor colorOfKingToCheck)
         {
             //store list of enemy team location and type
             Dictionary<int[],ChessPiece> enemyTeam = new Dictionary<int[], ChessPiece>();
