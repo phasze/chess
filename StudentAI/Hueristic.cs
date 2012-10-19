@@ -24,7 +24,7 @@ namespace StudentAI
             BoardAfterMove = board.Clone();
             BoardAfterMove.MakeMove(move);
             TheMove = move;
-            HValue = CalculateHueristicBasic(board,colorofEnemy);
+            HValue = CalculateHueristicAdvanced(board, colorofEnemy);
         }
 
         /// <summary>
@@ -83,12 +83,9 @@ namespace StudentAI
                 }
             }
 
-            return colorOfEnemyTeam == ChessColor.Black
-                       ? scoreB - scoreW +
-                         StudentAI.Piece.CalculatePieceActionValue(board[TheMove.From.X, TheMove.From.Y])
-                       : scoreW - scoreB +
-                         StudentAI.Piece.CalculatePieceActionValue(board[TheMove.From.X, TheMove.From.Y]);
-            return score - StudentAI.Piece.CalculatePieceActionValue(board[TheMove.From.X, TheMove.From.Y]);
+            return colorOfEnemyTeam == ChessColor.Black ? scoreB - scoreW : scoreW - scoreB;
+
+            //return score - StudentAI.Piece.CalculatePieceActionValue(board[TheMove.From.X, TheMove.From.Y]);
 
         }
 

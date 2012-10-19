@@ -34,6 +34,7 @@ namespace StudentAI
             Minimax myminimax = new Minimax();
             var minmaxmove = myminimax.getMinimax(this, board, myColor, 4);
             return minmaxmove;
+            #region old code
             List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             List<Hueristic> HueristicMoves = new List<Hueristic>();
@@ -107,6 +108,8 @@ namespace StudentAI
             }
 
             return HueristicMoves[index].TheMove;
+            #endregion
+
         }
 
         /// <summary>
