@@ -32,7 +32,7 @@ namespace StudentAI
         public ChessMove GetNextMove(ChessBoard board, ChessColor myColor)
         {
             Minimax myminimax = new Minimax();
-            var minmaxmove = myminimax.getMinimax(this, board, myColor, 1);
+            var minmaxmove = myminimax.getMinimax(this, board, myColor, 3);
             return minmaxmove;
             #region old code
             List<ChessMove> allmoves = new List<ChessMove>();
