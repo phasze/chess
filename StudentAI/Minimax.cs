@@ -58,12 +58,8 @@ namespace StudentAI
                     if (oppositemove.To != null && oppositemove.From != null)
                     {
                         tempBoard.MakeMove(oppositemove); //update the board with the new move
-                        var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, color); // calculate the score of the board
+                        var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
                         hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
-                        if (hmove.HValue > 100)
-                        {
-                            var h = hmove.HValue;
-                        }
                     }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
                 }
