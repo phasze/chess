@@ -11,7 +11,7 @@ namespace StudentAI
         Random rand = new Random();
         public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
-            if (depth <= 0)
+            if (depth < 0)
             {
                 return new ChessMove(null, null);
             }
@@ -60,6 +60,10 @@ namespace StudentAI
                         tempBoard.MakeMove(oppositemove); //update the board with the new move
                         var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, color); // calculate the score of the board
                         hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
+                        if (hmove.HValue > 100)
+                        {
+                            var h = hmove.HValue;
+                        }
                     }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
                 }
@@ -76,6 +80,10 @@ namespace StudentAI
             foreach (var x in updatedhueristic)
                 if (x.HValue == updatedhueristic[0].HValue)
                     tiecount++;
+            if (depth == 3)
+            {
+                var j = updatedhueristic[0].HValue;
+            }
             if (tiecount > 0)
                 return updatedhueristic[rand.Next(0, tiecount)].TheMove;
             else
