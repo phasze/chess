@@ -59,7 +59,7 @@ namespace StudentAI
                 hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
                 updatedhueristic.Add(hmove); // add new scored hueristic to new list
             }
-            updatedhueristic.Sort((x, y) => x.HValue.CompareTo(y.HValue)); // sort the new list
+            updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
             if (updatedhueristic.Count == 0)
             {
                 var game_over = new ChessMove(null, null);
