@@ -11,7 +11,7 @@ namespace StudentAI
         Random rand = new Random();
         public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
-            if (depth <= 0)
+            if (depth < 0)
             {
                 return new ChessMove(null, null);
             }
@@ -39,25 +39,30 @@ namespace StudentAI
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
                 if (move.Flag == ChessFlag.Check)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue -= 5;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue += 100;
                 if (move.Flag == ChessFlag.Checkmate)
                     HueristicMoves[HueristicMoves.Count - 1].HValue = 0;
             }
             List<Hueristic> updatedhueristic = new List<Hueristic>();
-            HueristicMoves.Sort((x, y) => x.HValue.CompareTo(y.HValue));
+            HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
             foreach (var hmove in HueristicMoves)
             {
                 var tempBoard = board.Clone();
-                tempBoard.MakeMove(hmove.TheMove);
+                if (hmove.TheMove!= null)
+                {
+                    tempBoard.MakeMove(hmove.TheMove);
 
-                ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth - 1); //get best move of the other color
+                    ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth - 1); //get best move of the other color
 
-                //TODO this will call a null move if checkmate or no moves, needs fixing
-
-                tempBoard.MakeMove(oppositemove); //update the board with the new move
-                var oppositemovehueristic = new Hueristic(tempBoard, color); // calculate the score of the board
-                hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
-                updatedhueristic.Add(hmove); // add new scored hueristic to new list
+                    //TODO this will call a null move if checkmate or no moves, needs fixing
+                    if (oppositemove.To != null && oppositemove.From != null)
+                    {
+                        tempBoard.MakeMove(oppositemove); //update the board with the new move
+                        var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
+                        hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
+                    }
+                        updatedhueristic.Add(hmove); // add new scored hueristic to new list
+                }
             }
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
             if (updatedhueristic.Count == 0)
@@ -71,6 +76,10 @@ namespace StudentAI
             foreach (var x in updatedhueristic)
                 if (x.HValue == updatedhueristic[0].HValue)
                     tiecount++;
+            if (depth == 3)
+            {
+                var j = updatedhueristic[0].HValue;
+            }
             if (tiecount > 0)
                 return updatedhueristic[rand.Next(0, tiecount)].TheMove;
             else

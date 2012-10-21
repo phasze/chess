@@ -21,10 +21,11 @@ namespace StudentAI
         /// <param name="colorofEnemy"></param>
         public Hueristic(ChessBoard board, ChessMove move, ChessColor colorofEnemy)
         {
-            BoardAfterMove = board.Clone();
-            BoardAfterMove.MakeMove(move);
+            BoardBeforeMove = board.Clone();
+            //BoardAfterMove.MakeMove(move);
             TheMove = move;
-            HValue = CalculateHueristicBasic(board, colorofEnemy);
+            //HValue = CalculateHueristicBasic(board, colorofEnemy);
+            HValue = CalculateHueristicAdvanced(colorofEnemy);
         }
 
         /// <summary>
@@ -77,14 +78,15 @@ namespace StudentAI
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if (colorOfEnemyTeam == ChessColor.Black && BoardBeforeMove[x, y] < ChessPiece.Empty) //if black
+                    if (BoardBeforeMove[x, y] < ChessPiece.Empty) //if black
                         scoreB += StudentAI.Piece.CalculatePieceValue(BoardBeforeMove[x, y]);
-                    else if (colorOfEnemyTeam == ChessColor.White && BoardBeforeMove[x, y] > ChessPiece.Empty) //if white
+                    else if (BoardBeforeMove[x, y] > ChessPiece.Empty) //if white
                         scoreW += StudentAI.Piece.CalculatePieceValue(BoardBeforeMove[x, y]);
                 }
             }
 
-            return colorOfEnemyTeam == ChessColor.Black ? scoreB - scoreW : scoreW - scoreB;
+            return colorOfEnemyTeam == ChessColor.Black ? scoreB - scoreW + StudentAI.Piece.CalculatePieceActionValue(BoardBeforeMove[TheMove.From.X, TheMove.From.Y]) 
+                : scoreW - scoreB + StudentAI.Piece.CalculatePieceActionValue(BoardBeforeMove[TheMove.From.X, TheMove.From.Y]);
 
             //return score - StudentAI.Piece.CalculatePieceActionValue(board[TheMove.From.X, TheMove.From.Y]);
 
