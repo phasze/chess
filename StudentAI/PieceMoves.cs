@@ -311,7 +311,6 @@ namespace StudentAI
                     }
                     x = 1;
                     flag = true;
-                    x = 1;
                     while (flag)
                     {
                         move = new ChessMove(location, new ChessLocation(location.X + x, location.Y));
