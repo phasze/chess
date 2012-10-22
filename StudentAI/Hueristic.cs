@@ -22,7 +22,8 @@ namespace StudentAI
         public Hueristic(ChessBoard board, ChessMove move, ChessColor colorofEnemy)
         {
             BoardBeforeMove = board.Clone();
-            //BoardAfterMove.MakeMove(move);
+            BoardAfterMove = board.Clone();
+            BoardAfterMove.MakeMove(move);
             TheMove = move;
             //HValue = CalculateHueristicBasic(board, colorofEnemy);
             HValue = CalculateHueristicAdvanced(colorofEnemy);
@@ -78,10 +79,10 @@ namespace StudentAI
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if (BoardBeforeMove[x, y] < ChessPiece.Empty) //if black
-                        scoreB += StudentAI.Piece.CalculatePieceValue(BoardBeforeMove[x, y]);
-                    else if (BoardBeforeMove[x, y] > ChessPiece.Empty) //if white
-                        scoreW += StudentAI.Piece.CalculatePieceValue(BoardBeforeMove[x, y]);
+                    if (BoardAfterMove[x, y] < ChessPiece.Empty) //if black
+                        scoreB += StudentAI.Piece.CalculatePieceValue(BoardAfterMove[x, y]);
+                    else if (BoardAfterMove[x, y] > ChessPiece.Empty) //if white
+                        scoreW += StudentAI.Piece.CalculatePieceValue(BoardAfterMove[x, y]);
                 }
             }
 
