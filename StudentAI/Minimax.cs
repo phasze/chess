@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Linq;
 using System.Text;
 using  UvsChess;
@@ -8,7 +9,16 @@ namespace StudentAI
 {
     class Minimax
     {
-        Random rand = new Random();
+        static Random rand = new Random();
+        public static Hueristic _bestMove = null;
+        private static ChessColor myColor;
+
+        public static void getMoveThread(StudentAI AI, ChessBoard board, ChessColor color, int depth)
+        {
+            myColor = color;
+            //getMinimax(AI, board, color, depth);
+        }
+
         public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
             if (depth < 0)
@@ -45,6 +55,8 @@ namespace StudentAI
             }
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
+            if (_bestMove == null)
+                _bestMove = HueristicMoves[0];
             foreach (var hmove in HueristicMoves)
             {
                 var tempBoard = board.Clone();
@@ -82,8 +94,11 @@ namespace StudentAI
             }
             if (tiecount > 0)
                 return updatedhueristic[rand.Next(0, tiecount)].TheMove;
-            else
-                return updatedhueristic[0].TheMove;      //return the best value from the new list
+
+            if (_bestMove.HValue > updatedhueristic[0].HValue && color==myColor)
+                _bestMove = updatedhueristic[0]; //TODO THIS IS BROKEN, need to go back to parent move
+
+            return updatedhueristic[0].TheMove;      //return the best value from the new list
         }
     }
 }

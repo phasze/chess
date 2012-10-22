@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Text;
 using UvsChess;
 
@@ -22,6 +23,7 @@ namespace StudentAI
 #endif
         }
 
+
         /// <summary>
         /// Evaluates the chess board and decided which move to make. This is the main method of the AI.
         /// The framework will call this method when it's your turn.
@@ -32,8 +34,15 @@ namespace StudentAI
         public ChessMove GetNextMove(ChessBoard board, ChessColor myColor)
         {
             Minimax myminimax = new Minimax();
-            var minmaxmove = myminimax.getMinimax(this, board, myColor, 1);
+            //var timer = new Timer()
+            
+            //var getMoveThread = new Thread(()=>Minimax.getMoveThread(this, board, myColor, 1));
+            //getMoveThread.Start();
             return minmaxmove;
+            //Thread.Sleep(5000);
+            //getMoveThread.Abort();
+            //return Minimax._bestMove.TheMove;
+
             #region old code
             List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));

@@ -186,6 +186,7 @@ namespace StudentAI
                 return false;
             }
 
+
             //all good
             return true;
         }
@@ -371,6 +372,7 @@ namespace StudentAI
                     else
                         fromX--;
                 }
+                return true;
             }
             //if vertical
             else if(fromX==toX)
@@ -388,10 +390,47 @@ namespace StudentAI
                     else
                         fromY--;
                 }
+                return true;
             }
             //if diagonal
-            else if(Math.Abs(fromX-toX)==Math.Abs(fromY-toY))
+            /*bool Xbloodybug = false;
+            bool Ybloodybug = false;
+            bool XTbloodybug = false;
+            bool YTbloodybug = false;
+
+            if (fromX == 0)
             {
+                fromX++;
+                Xbloodybug = true;
+            }
+            if(fromY == 0)
+            {
+                fromY++;
+                Ybloodybug = true;
+            }
+            if (toY == 0)
+            {
+                toY++;
+                YTbloodybug = true;
+            }
+            if (toX == 0)
+            {
+                toX++;
+                XTbloodybug = true;
+            }*/
+
+            if (Math.Abs(fromX - toX) == Math.Abs(fromY - toY))
+            {
+                /*if (Xbloodybug)
+                    fromX--;
+                if (Ybloodybug)
+                    fromY--;
+                if (XTbloodybug)
+                    toX--;
+                if (YTbloodybug)
+                    toY--;*/
+
+                //don't check the same location
                 if (toY - fromY > 0)
                     fromY++;
                 else
@@ -416,13 +455,10 @@ namespace StudentAI
                     else
                         fromX--;
                 }
+                return true;
             }
-            else //if none of the above
-            {
-                return false;
-            }
-
-            return true;
+            //if none of the above
+            return false;
         }
 
         //check if move is enemy
