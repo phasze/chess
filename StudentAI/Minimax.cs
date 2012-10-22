@@ -39,9 +39,9 @@ namespace StudentAI
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
                 if (move.Flag == ChessFlag.Check)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue += 100;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue += 5;
                 if (move.Flag == ChessFlag.Checkmate)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue = 0;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
             }
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
@@ -85,6 +85,5 @@ namespace StudentAI
             else
                 return updatedhueristic[0].TheMove;      //return the best value from the new list
         }
-        // for all moves call minimax with depth -1 with that move to other color
     }
 }
