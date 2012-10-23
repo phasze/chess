@@ -35,7 +35,7 @@ namespace StudentAI
         {
             Minimax myminimax = new Minimax();
             //var timer = new Timer()
-            ChessMove minmaxmove = myminimax.getMinimax(this,board,myColor,1);
+            ChessMove minmaxmove = myminimax.getMinimax(this,board,myColor,2);
             //var getMoveThread = new Thread(()=>Minimax.getMoveThread(this, board, myColor, 1));
             //getMoveThread.Start();
             return minmaxmove;
