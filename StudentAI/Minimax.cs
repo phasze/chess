@@ -12,10 +12,13 @@ namespace StudentAI
         static Random rand = new Random();
         public static Hueristic _bestMove = null;
         private static ChessColor myColor;
+        private static bool timerUp = false;
 
-        public static void getMoveThread(StudentAI AI, ChessBoard board, ChessColor color, int depth)
+        public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
-            myColor = color;
+            //myColor = color;
+            Thread.Sleep(5000);
+            timerUp = true;
             //getMinimax(AI, board, color, depth);
         }
 
@@ -60,7 +63,7 @@ namespace StudentAI
             foreach (var hmove in HueristicMoves)
             {
                 var tempBoard = board.Clone();
-                if (hmove.TheMove!= null)
+                if (hmove.TheMove!= null && !timerUp)
                 {
                     tempBoard.MakeMove(hmove.TheMove);
 
