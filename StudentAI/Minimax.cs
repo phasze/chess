@@ -12,7 +12,7 @@ namespace StudentAI
         static Random rand = new Random();
         public static Hueristic _bestMove = null;
         private static ChessColor myColor;
-        private static bool timerUp = false;
+        public static bool timerUp = false;
 
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
@@ -98,8 +98,6 @@ namespace StudentAI
             if (tiecount > 0)
                 return updatedhueristic[rand.Next(0, tiecount)].TheMove;
 
-            if (_bestMove.HValue > updatedhueristic[0].HValue && color==myColor)
-                _bestMove = updatedhueristic[0]; //TODO THIS IS BROKEN, need to go back to parent move
 
             return updatedhueristic[0].TheMove;      //return the best value from the new list
         }
