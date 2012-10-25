@@ -39,7 +39,7 @@ namespace StudentAI
             //var getMoveThread = new Thread(()=>Minimax.getMoveThread(this, board, myColor, 1));
             var getMoveThread = new Thread(Minimax.getMoveThread);
             getMoveThread.Start();
-            var minmaxmove = myminimax.getMinimax(this, board, myColor, 4);
+            var minmaxmove = myminimax.getMinimax(this, board, myColor, 1,myColor);
             Minimax.timerUp = false;
             return minmaxmove;
             //getMoveThread.Abort();
