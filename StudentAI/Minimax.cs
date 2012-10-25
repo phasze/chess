@@ -98,13 +98,8 @@ namespace StudentAI
                 foreach (var x in updatedhueristic)
                     if (x.HValue == updatedhueristic[0].HValue)
                         tiecount++;
-                if (depth == 3)
-                {
-                    var j = updatedhueristic[0].HValue;
-                }
                 if (tiecount > 0)
                     return updatedhueristic[rand.Next(0, tiecount)].TheMove;
-
             }
             if (depth != 3 && updatedhueristic.Count == 0)
                 return new ChessMove(null, null);
