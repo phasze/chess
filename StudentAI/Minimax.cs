@@ -47,7 +47,10 @@ namespace StudentAI
                     move.Flag = ChessFlag.Check;
                     //check for checkmate
                     if (PieceMoves.getmovesofcolor(AI, oppositeColor, tempBoard).Count == 0)
+                    {
                         move.Flag = ChessFlag.Checkmate;
+                        return move;
+                    }
                 }
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
