@@ -52,7 +52,7 @@ namespace StudentAI
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
                 if (move.Flag == ChessFlag.Check)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue += 10;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue += 5;
                 if (move.Flag == ChessFlag.Checkmate)
                     HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
             }
@@ -72,7 +72,7 @@ namespace StudentAI
                     //TODO this will call a null move if checkmate or no moves, needs fixing
                     if (oppositemove.To != null && oppositemove.From != null)
                     {
-                        tempBoard.MakeMove(oppositemove); //update the board with the new move
+                        //tempBoard.MakeMove(oppositemove); //update the board with the new move
                         var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
                         hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
                     }
