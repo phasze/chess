@@ -68,7 +68,7 @@ namespace StudentAI
             foreach (var hmove in HueristicMoves)
             {
                 var tempBoard = board.Clone();
-                if (hmove.TheMove!= null/* && !timerUp*/)
+                if (hmove.TheMove!= null && !timerUp)
                 {
                     tempBoard.MakeMove(hmove.TheMove);
 
@@ -87,7 +87,7 @@ namespace StudentAI
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
             if (color == maxColor)
             {
-                if (updatedhueristic.Count == 0)
+                if (updatedhueristic.Count == 0 && depth !=3)
                 {
                     var game_over = new ChessMove(null, null);
                     game_over.Flag = ChessFlag.Stalemate;
@@ -106,6 +106,8 @@ namespace StudentAI
                     return updatedhueristic[rand.Next(0, tiecount)].TheMove;
 
             }
+            if (depth != 3 && updatedhueristic.Count == 0)
+                return new ChessMove(null, null);
             return updatedhueristic[0].TheMove;      //return the best value from the new list
         }
     }
