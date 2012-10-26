@@ -17,7 +17,7 @@ namespace StudentAI
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
             //myColor = color;
-            Thread.Sleep(4600);
+            Thread.Sleep(4500);
             timerUp = true;
             //getMinimax(AI, board, color, depth);
         }
@@ -55,9 +55,12 @@ namespace StudentAI
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
                 if (color == maxColor && move.Flag == ChessFlag.Check)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue += 2;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue += 7;
                 if (color == maxColor && move.Flag == ChessFlag.Checkmate)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue = 1000;
+                {
+                    HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
+                    return move;
+                }
             }
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));

@@ -19,7 +19,7 @@ namespace StudentAI
 #if DEBUG
             get { return "StudentAI (Debug)"; }
 #else
-            get { return "StudentAI"; }
+            get { return "Stalemate FTW"; }
 #endif
         }
 
@@ -39,7 +39,7 @@ namespace StudentAI
             //var getMoveThread = new Thread(()=>Minimax.getMoveThread(this, board, myColor, 1));
             var getMoveThread = new Thread(Minimax.getMoveThread);
             getMoveThread.Start();
-            var minmaxmove = myminimax.getMinimax(this, board, myColor, 5,myColor);
+            var minmaxmove = myminimax.getMinimax(this, board, myColor, 3,myColor);
             Minimax.timerUp = false;
             return minmaxmove;
             //getMoveThread.Abort();
