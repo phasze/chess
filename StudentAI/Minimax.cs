@@ -18,11 +18,11 @@ namespace StudentAI
         {
             //myColor = color;
             Thread.Sleep(5000);
-            timerUp = true;
+            //timerUp = true;
             //getMinimax(AI, board, color, depth);
         }
 
-        public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth, ChessColor maxColor)
+        public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth, ChessColor maxColor, int alpha = -999999, int beta = 999999)
         {
             if (depth < 0)
             {
@@ -36,7 +36,7 @@ namespace StudentAI
 
             ChessColor oppositeColor = color == ChessColor.Black ? ChessColor.White : ChessColor.Black;
 
-            //TODO possibly temorary, but set the check flag
+            //set check/checkmate flag and calculate hueristic on each move
             foreach (var move in allmoves)
             {
                 var tempBoard = board.Clone();
@@ -55,7 +55,7 @@ namespace StudentAI
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
                 if (move.Flag == ChessFlag.Check)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue += 5;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue += 2;
                 if (move.Flag == ChessFlag.Checkmate)
                     HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
                 if (color != maxColor)
@@ -63,28 +63,43 @@ namespace StudentAI
             }
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
-            if (_bestMove == null)
-                _bestMove = HueristicMoves[0];
+
+            //minimax and alpha beta pruning
             foreach (var hmove in HueristicMoves)
             {
+                //TODO if player = maxplayer store a to be max then if beta <= alpha break
+
                 var tempBoard = board.Clone();
                 if (hmove.TheMove!= null && !timerUp)
                 {
                     tempBoard.MakeMove(hmove.TheMove);
 
-                    ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth - 1,maxColor); //get best move of the other color
+                    ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth - 1,maxColor,alpha,beta); //get best move of the other color
 
-                    //TODO this will call a null move if checkmate or no moves, needs fixing
                     if (oppositemove.To != null && oppositemove.From != null)
                     {
-                        //tempBoard.MakeMove(oppositemove); //update the board with the new move
                         var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
                         hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
+                        //a=max(a,hueristic)
+                        if (maxColor == color)
+                        {
+                            alpha = alpha > oppositemovehueristic.HValue ? alpha : oppositemovehueristic.HValue;
+                            if (beta <= alpha)
+                                break;
+                        }
+                        else
+                        {
+                            beta = beta < oppositemovehueristic.HValue ? beta : oppositemovehueristic.HValue;
+                            if (beta <= alpha)
+                                break;
+                        }
                     }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
                 }
             }
+
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
+
             if (color == maxColor)
             {
                 if (updatedhueristic.Count == 0 && depth !=3)
@@ -101,7 +116,8 @@ namespace StudentAI
                 if (tiecount > 0)
                     return updatedhueristic[rand.Next(0, tiecount)].TheMove;
             }
-            if (depth != 3 && updatedhueristic.Count == 0)
+
+            if (updatedhueristic.Count == 0)
                 return new ChessMove(null, null);
             return updatedhueristic[0].TheMove;      //return the best value from the new list
         }
