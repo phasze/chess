@@ -87,7 +87,7 @@ namespace StudentAI
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
             if (color == maxColor)
             {
-                if (updatedhueristic.Count == 0 && depth !=3)
+                if (updatedhueristic.Count == 0 && depth ==3)
                 {
                     var game_over = new ChessMove(null, null);
                     game_over.Flag = ChessFlag.Stalemate;
