@@ -361,13 +361,7 @@ namespace StudentAI
 
             internal short PieceValue;
             internal short PieceActionValue;
-
-            internal short AttackedValue;
-            internal short DefendedValue;
-
             internal bool Moved;
-
-            internal bool Selected;
 
             #endregion
 
