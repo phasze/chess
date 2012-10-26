@@ -39,14 +39,14 @@ namespace StudentAI
             //var getMoveThread = new Thread(()=>Minimax.getMoveThread(this, board, myColor, 1));
             var getMoveThread = new Thread(Minimax.getMoveThread);
             getMoveThread.Start();
-            var minmaxmove = myminimax.getMinimax(this, board, myColor, 2,myColor);
+            var minmaxmove = myminimax.getMinimax(this, board, myColor, 4,myColor);
             Minimax.timerUp = false;
             return minmaxmove;
             //getMoveThread.Abort();
             //return Minimax._bestMove.TheMove;
 
             #region old code
-            List<ChessMove> allmoves = new List<ChessMove>();
+            /*List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(this, myColor, board));
             List<Hueristic> HueristicMoves = new List<Hueristic>();
             //DecisionTree descisions = new DecisionTree(board);
@@ -118,7 +118,7 @@ namespace StudentAI
                 index = rand.Next(0, HueristicMoves.Count);
             }
 
-            return HueristicMoves[index].TheMove;
+            return HueristicMoves[index].TheMove;*/
             #endregion
 
         }

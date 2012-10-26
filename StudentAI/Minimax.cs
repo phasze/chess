@@ -11,14 +11,14 @@ namespace StudentAI
     {
         static Random rand = new Random();
         public static Hueristic _bestMove = null;
-        private static ChessColor myColor;
+        //private static ChessColor myColor;
         public static bool timerUp = false;
 
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
             //myColor = color;
             Thread.Sleep(5000);
-            //timerUp = true;
+            timerUp = true;
             //getMinimax(AI, board, color, depth);
         }
 
@@ -54,15 +54,16 @@ namespace StudentAI
                 }
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
-                if (move.Flag == ChessFlag.Check)
+                if (color == maxColor && move.Flag == ChessFlag.Check)
                     HueristicMoves[HueristicMoves.Count - 1].HValue += 2;
-                if (move.Flag == ChessFlag.Checkmate)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
-                if (color != maxColor)
-                    move.Flag = ChessFlag.NoFlag;
+                if (color == maxColor && move.Flag == ChessFlag.Checkmate)
+                    HueristicMoves[HueristicMoves.Count - 1].HValue = 1000;
             }
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
+
+            if (depth == 0 && HueristicMoves.Count > 1)
+                return HueristicMoves[0].TheMove;
 
             //minimax and alpha beta pruning
             foreach (var hmove in HueristicMoves)
@@ -80,19 +81,19 @@ namespace StudentAI
                     {
                         var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
                         hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
-                        //a=max(a,hueristic)
-                        if (maxColor == color)
-                        {
-                            alpha = alpha > oppositemovehueristic.HValue ? alpha : oppositemovehueristic.HValue;
-                            if (beta <= alpha)
-                                break;
-                        }
-                        else
-                        {
-                            beta = beta < oppositemovehueristic.HValue ? beta : oppositemovehueristic.HValue;
-                            if (beta <= alpha)
-                                break;
-                        }
+                    }
+                    //a=max(a,hueristic)
+                    if (maxColor == color)
+                    {
+                        alpha = alpha > hmove.HValue ? alpha : hmove.HValue;
+                        if (beta <= alpha)
+                            break;
+                    }
+                    else
+                    {
+                        beta = beta < hmove.HValue ? beta : hmove.HValue;
+                        if (beta <= alpha)
+                            break;
                     }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
                 }
