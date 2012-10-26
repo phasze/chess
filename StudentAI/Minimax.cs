@@ -82,6 +82,7 @@ namespace StudentAI
                         var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
                         hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
                     }
+                    updatedhueristic.Add(hmove); // add new scored hueristic to new list
                     //a=max(a,hueristic)
                     if (maxColor == color)
                     {
@@ -95,7 +96,6 @@ namespace StudentAI
                         if (beta <= alpha)
                             break;
                     }
-                        updatedhueristic.Add(hmove); // add new scored hueristic to new list
                 }
             }
 
@@ -103,7 +103,7 @@ namespace StudentAI
 
             if (color == maxColor)
             {
-                if (updatedhueristic.Count == 0 && depth ==3)
+                if (updatedhueristic.Count == 0)
                 {
                     var game_over = new ChessMove(null, null);
                     game_over.Flag = ChessFlag.Stalemate;
