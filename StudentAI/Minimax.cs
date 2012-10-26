@@ -62,7 +62,7 @@ namespace StudentAI
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
 
-            if (depth == 0 && HueristicMoves.Count > 1)
+            if (timerUp || (depth == 0 && HueristicMoves.Count > 1))
                 return HueristicMoves[0].TheMove;
 
             //minimax and alpha beta pruning
@@ -71,7 +71,7 @@ namespace StudentAI
                 //TODO if player = maxplayer store a to be max then if beta <= alpha break
 
                 var tempBoard = board.Clone();
-                if (hmove.TheMove!= null && !timerUp)
+                if (hmove.TheMove!= null)
                 {
                     tempBoard.MakeMove(hmove.TheMove);
 
@@ -103,7 +103,7 @@ namespace StudentAI
 
             if (color == maxColor)
             {
-                if (updatedhueristic.Count == 0)
+                if (updatedhueristic.Count == 0 && depth==3)
                 {
                     var game_over = new ChessMove(null, null);
                     game_over.Flag = ChessFlag.Stalemate;
