@@ -16,11 +16,11 @@ namespace StudentAI
         /// </summary>
         public string Name
         {
-//#if DEBUG
-//            get { return "StudentAI (Debug)"; }
-//#else
+#if DEBUG
+            get { return "StudentAI (Debug3)"; }
+#else
             get { return "Stalemate FTWv2"; }
-//#endif
+#endif
         }
 
 
@@ -37,10 +37,10 @@ namespace StudentAI
             //var timer = new Timer()
 
             //var getMoveThread = new Thread(()=>Minimax.getMoveThread(this, board, myColor, 1));
-            var getMoveThread = new Thread(Minimax.getMoveThread);
-            getMoveThread.Start();
+            //Minimax.timerUp = false;
+            //var getMoveThread = new Thread(Minimax.getMoveThread);
+            //getMoveThread.Start();
             var minmaxmove = myminimax.getMinimax(this, board, myColor, 3,myColor);
-            Minimax.timerUp = false;
             return minmaxmove;
             //getMoveThread.Abort();
             //return Minimax._bestMove.TheMove;
@@ -465,7 +465,7 @@ namespace StudentAI
                     case ChessPiece.BlackQueen:
                     case ChessPiece.WhiteQueen:
                         {
-                            return 1;
+                            return 5;
                         }
 
                     case ChessPiece.BlackKing:

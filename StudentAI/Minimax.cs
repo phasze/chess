@@ -66,7 +66,7 @@ namespace StudentAI
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
 
 
-            if (timerUp && HueristicMoves.Count > 0)
+            if (AI.IsMyTurnOver() && HueristicMoves.Count > 0)
                 return HueristicMoves[0].TheMove;
 
             if (depth == 0 && HueristicMoves.Count>0)

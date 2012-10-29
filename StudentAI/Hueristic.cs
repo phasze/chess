@@ -86,6 +86,7 @@ namespace StudentAI
                 }
             }
 
+            //return colorOfEnemyTeam == ChessColor.Black ? scoreB - scoreW : scoreW - scoreB;
             return colorOfEnemyTeam == ChessColor.Black ? scoreB - scoreW + StudentAI.Piece.CalculatePieceActionValue(BoardBeforeMove[TheMove.From.X, TheMove.From.Y]) 
                 : scoreW - scoreB + StudentAI.Piece.CalculatePieceActionValue(BoardBeforeMove[TheMove.From.X, TheMove.From.Y]);
 
