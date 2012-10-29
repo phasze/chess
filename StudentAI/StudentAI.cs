@@ -17,7 +17,7 @@ namespace StudentAI
         public string Name
         {
 #if DEBUG
-            get { return "StudentAI (Debug3)"; }
+            get { return "Stalemater"; }
 #else
             get { return "Stalemate FTWv2"; }
 #endif
@@ -449,12 +449,12 @@ namespace StudentAI
                     case ChessPiece.BlackKnight:
                     case ChessPiece.WhiteKnight:
                         {
-                            return 3;
+                            return 6;
                         }
                     case ChessPiece.BlackBishop:
                     case ChessPiece.WhiteBishop:
                         {
-                            return 3;
+                            return 6;
                         }
                     case ChessPiece.BlackRook:
                     case ChessPiece.WhiteRook:
@@ -465,7 +465,7 @@ namespace StudentAI
                     case ChessPiece.BlackQueen:
                     case ChessPiece.WhiteQueen:
                         {
-                            return 5;
+                            return 6;
                         }
 
                     case ChessPiece.BlackKing:
