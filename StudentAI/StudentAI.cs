@@ -16,11 +16,11 @@ namespace StudentAI
         /// </summary>
         public string Name
         {
-#if DEBUG
-            get { return "StudentAI (Debug)"; }
-#else
-            get { return "Stalemate FTW"; }
-#endif
+//#if DEBUG
+//            get { return "StudentAI (Debug)"; }
+//#else
+            get { return "Stalemate FTWv2"; }
+//#endif
         }
 
 
