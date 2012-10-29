@@ -57,7 +57,7 @@ namespace StudentAI
 
                 HueristicMoves.Add(new Hueristic(board, move, color));
                 if (color == maxColor && move.Flag == ChessFlag.Check)
-                    HueristicMoves[HueristicMoves.Count - 1].HValue += 7;
+                    HueristicMoves[HueristicMoves.Count - 1].HValue += 2;
                 if (color == maxColor && move.Flag == ChessFlag.Checkmate)
                 {
                     HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
