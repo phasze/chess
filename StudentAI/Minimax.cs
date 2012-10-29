@@ -13,18 +13,20 @@ namespace StudentAI
         public static Hueristic _bestMove = null;
         //private static ChessColor myColor;
         public static bool timerUp = false;
+        public int maxdepth = 1;
 
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
             //myColor = color;
-            Thread.Sleep(4500);
+            Thread.Sleep(4000);
             timerUp = true;
             //getMinimax(AI, board, color, depth);
         }
 
         public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth, ChessColor maxColor, int alpha = -999999, int beta = 999999)
         {
-            if (depth < 0)
+            //TODO update to return heuristic instead of move and update get next move to return move of heuristic.
+            if (depth > maxdepth)
             {
                 return new ChessMove(null, null);
             }
@@ -62,48 +64,56 @@ namespace StudentAI
                     return move;
                 }
             }
-            List<Hueristic> updatedhueristic = new List<Hueristic>();
+            
             HueristicMoves.Sort((x, y) => y.HValue.CompareTo(x.HValue));
 
 
-            if (timerUp && HueristicMoves.Count > 0)
+            if (AI.IsMyTurnOver() && HueristicMoves.Count > 0)
                 return HueristicMoves[0].TheMove;
 
-            if (depth == 0 && HueristicMoves.Count>0)
+            if (depth == maxdepth && HueristicMoves.Count>0)
                 return HueristicMoves[0].TheMove;
-
+            List<Hueristic> updatedhueristic = new List<Hueristic>();
             //minimax and alpha beta pruning
-            foreach (var hmove in HueristicMoves)
+            while (!AI.IsMyTurnOver())
             {
-                //TODO if player = maxplayer store a to be max then if beta <= alpha break
-
-                var tempBoard = board.Clone();
-                if (hmove.TheMove!= null)
+                updatedhueristic = new List<Hueristic>();
+                foreach (var hmove in HueristicMoves)
                 {
-                    tempBoard.MakeMove(hmove.TheMove);
+                    //TODO if player = maxplayer store a to be max then if beta <= alpha break
 
-                    ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth - 1,maxColor,alpha,beta); //get best move of the other color
+                    var tempBoard = board.Clone();
+                    if (hmove.TheMove != null)
+                    {
+                        tempBoard.MakeMove(hmove.TheMove);
+                        if (depth != maxdepth)
+                        {
+                            ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth + 1, maxColor, alpha, beta); //get best move of the other color
 
-                    if (oppositemove.To != null && oppositemove.From != null)
-                    {
-                        var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
-                        hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
-                    }
-                    updatedhueristic.Add(hmove); // add new scored hueristic to new list
-                    //a=max(a,hueristic)
-                    if (maxColor == color)
-                    {
-                        alpha = alpha > hmove.HValue ? alpha : hmove.HValue;
-                        if (beta <= alpha)
-                            break;
-                    }
-                    else
-                    {
-                        beta = beta < hmove.HValue ? beta : hmove.HValue;
-                        if (beta <= alpha)
-                            break;
+                            if (oppositemove.To != null && oppositemove.From != null)
+                            {
+                                var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
+                                hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
+                            }
+                        }
+                        updatedhueristic.Add(hmove); // add new scored hueristic to new list
+                        //a=max(a,hueristic)
+                        if (maxColor == color)
+                        {
+                            alpha = alpha > hmove.HValue ? alpha : hmove.HValue;
+                            if (beta <= alpha)
+                                break;
+                        }
+                        else
+                        {
+                            beta = beta < hmove.HValue ? beta : hmove.HValue;
+                            if (beta <= alpha)
+                                break;
+                        }
                     }
                 }
+                if (!AI.IsMyTurnOver())
+                    maxdepth += 1;
             }
 
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
