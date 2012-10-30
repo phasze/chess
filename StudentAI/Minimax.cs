@@ -81,7 +81,7 @@ namespace StudentAI
                 foreach (var hmove in HueristicMoves)
                 {
                     //TODO if player = maxplayer store a to be max then if beta <= alpha break
-
+                    
                     var tempBoard = board.Clone();
                     if (hmove.TheMove != null)
                     {
@@ -96,6 +96,8 @@ namespace StudentAI
                             }
                         }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
+                        if (AI.IsMyTurnOver())
+                            break;
                         //a=max(a,hueristic)
                         if (maxColor == color)
                         {
