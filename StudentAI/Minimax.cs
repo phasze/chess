@@ -23,12 +23,12 @@ namespace StudentAI
             //getMinimax(AI, board, color, depth);
         }
 
-        public ChessMove getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth, ChessColor maxColor, int alpha = -999999, int beta = 999999)
+        public Hueristic getMinimax(StudentAI AI, ChessBoard board, ChessColor color, int depth, ChessColor maxColor, int alpha = -999999, int beta = 999999)
         {
             //TODO update to return heuristic instead of move and update get next move to return move of heuristic.
             if (depth > maxdepth)
             {
-                return new ChessMove(null, null);
+                return new Hueristic(board,new ChessMove(null, null),color);
             }
             List<ChessMove> allmoves = new List<ChessMove>();
             allmoves.AddRange(PieceMoves.getmovesofcolor(AI, color, board));
@@ -51,7 +51,7 @@ namespace StudentAI
                     if (PieceMoves.getmovesofcolor(AI, oppositeColor, tempBoard).Count == 0)
                     {
                         move.Flag = ChessFlag.Checkmate;
-                        return move;
+                        return new Hueristic(board,move,color);
                     }
                 }
 
@@ -61,7 +61,7 @@ namespace StudentAI
                 if (color == maxColor && move.Flag == ChessFlag.Checkmate)
                 {
                     HueristicMoves[HueristicMoves.Count - 1].HValue = 10000;
-                    return move;
+                    return HueristicMoves[HueristicMoves.Count -1];
                 }
             }
             
@@ -69,10 +69,10 @@ namespace StudentAI
 
 
             if (AI.IsMyTurnOver() && HueristicMoves.Count > 0)
-                return HueristicMoves[0].TheMove;
+                return HueristicMoves[0];
 
             if (depth == maxdepth && HueristicMoves.Count>0)
-                return HueristicMoves[0].TheMove;
+                return HueristicMoves[0];
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             //minimax and alpha beta pruning
             while (!AI.IsMyTurnOver())
@@ -88,12 +88,11 @@ namespace StudentAI
                         tempBoard.MakeMove(hmove.TheMove);
                         if (depth != maxdepth)
                         {
-                            ChessMove oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth + 1, maxColor, alpha, beta); //get best move of the other color
+                            var oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth + 1, maxColor, alpha, beta); //get best move of the other color
 
-                            if (oppositemove.To != null && oppositemove.From != null)
+                            if (oppositemove.TheMove.To != null && oppositemove.TheMove.From != null)
                             {
-                                var oppositemovehueristic = new Hueristic(tempBoard, oppositemove, oppositeColor); // calculate the score of the board
-                                hmove.HValue -= oppositemovehueristic.HValue; // update our moves score based on return of projected other move
+                                hmove.HValue -= oppositemove.HValue; // update our moves score based on return of projected other move
                             }
                         }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
@@ -113,7 +112,10 @@ namespace StudentAI
                     }
                 }
                 if (!AI.IsMyTurnOver())
-                    maxdepth += 1;
+                {
+                    if (depth == maxdepth)
+                        maxdepth += 1;
+                }
             }
 
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
@@ -124,7 +126,8 @@ namespace StudentAI
                 {
                     var game_over = new ChessMove(null, null);
                     game_over.Flag = ChessFlag.Stalemate;
-                    return game_over;
+                    var game_overhueristic = new Hueristic(board, game_over, color);
+                    return game_overhueristic;
 
                 }
                 int tiecount = -1;
@@ -132,12 +135,12 @@ namespace StudentAI
                     if (x.HValue == updatedhueristic[0].HValue)
                         tiecount++;
                 if (tiecount > 0)
-                    return updatedhueristic[rand.Next(0, tiecount)].TheMove;
+                    return updatedhueristic[rand.Next(0, tiecount)];
             }
 
             if (updatedhueristic.Count == 0)
-                return new ChessMove(null, null);
-            return updatedhueristic[0].TheMove;      //return the best value from the new list
+                return new Hueristic(board,new ChessMove(null, null),color);
+            return updatedhueristic[0];      //return the best value from the new list
         }
     }
 }
