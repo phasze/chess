@@ -75,6 +75,7 @@ namespace StudentAI
                 return HueristicMoves[0];
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             //minimax and alpha beta pruning
+            
             while (!AI.IsMyTurnOver())
             {
                 updatedhueristic = new List<Hueristic>();
@@ -116,7 +117,9 @@ namespace StudentAI
                 if (!AI.IsMyTurnOver())
                 {
                     if (depth == maxdepth)
+                    {
                         maxdepth += 1;
+                    }
                 }
             }
 
