@@ -75,25 +75,27 @@ namespace StudentAI
             //    return HueristicMoves[0];
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             //minimax and alpha beta pruning
-            
-            while (!AI.IsMyTurnOver() && depth==0)
+
+            do
             {
                 updatedhueristic = new List<Hueristic>();
                 foreach (var hmove in HueristicMoves)
                 {
                     //TODO if player = maxplayer store a to be max then if beta <= alpha break
-                    
+
                     var tempBoard = board.Clone();
                     if (hmove.TheMove != null)
                     {
                         tempBoard.MakeMove(hmove.TheMove);
                         if (depth != maxdepth)
                         {
-                            var oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth + 1, maxColor, alpha, beta); //get best move of the other color
+                            var oppositemove = getMinimax(AI, tempBoard, oppositeColor, depth + 1, maxColor, alpha, beta);
+                                //get best move of the other color
 
                             if (oppositemove.TheMove.To != null && oppositemove.TheMove.From != null)
                             {
-                                hmove.HValue -= oppositemove.HValue; // update our moves score based on return of projected other move
+                                hmove.HValue -= oppositemove.HValue;
+                                    // update our moves score based on return of projected other move
                             }
                         }
                         updatedhueristic.Add(hmove); // add new scored hueristic to new list
@@ -122,7 +124,7 @@ namespace StudentAI
                         maxdepth += 1;
                     }
                 }
-            }
+            } while (!AI.IsMyTurnOver() && depth == 0);
 
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
 
