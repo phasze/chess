@@ -13,7 +13,7 @@ namespace StudentAI
         public static Hueristic _bestMove = null;
         //private static ChessColor myColor;
         public static bool timerUp = false;
-        public static int maxdepth = 1;
+        public static int maxdepth = 2;
 
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
@@ -78,6 +78,7 @@ namespace StudentAI
 
             do
             {
+                //TODO, store previous move and if we ran out of time use that one since we don't know if optimal on the next one
                 updatedhueristic = new List<Hueristic>();
                 foreach (var hmove in HueristicMoves)
                 {
@@ -120,7 +121,6 @@ namespace StudentAI
                 {
                     if (depth == 0)
                     {
-                        //TODO INFINITE LOOP
                         maxdepth += 1;
                     }
                 }
