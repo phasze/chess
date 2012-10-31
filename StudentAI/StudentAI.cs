@@ -36,7 +36,8 @@ namespace StudentAI
             Minimax myminimax = new Minimax();
             //var timer = new Timer()
             var minmaxmove = myminimax.getMinimax(this, board, myColor, 0, myColor);
-            this.Log.Invoke("Depth " + myminimax.maxdepth + " reached.");
+            this.Log.Invoke("Depth " + Minimax.maxdepth + " reached.");
+            Minimax.maxdepth = 0;
 
             return minmaxmove.TheMove;
             //getMoveThread.Abort();

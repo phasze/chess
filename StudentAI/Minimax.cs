@@ -13,7 +13,7 @@ namespace StudentAI
         public static Hueristic _bestMove = null;
         //private static ChessColor myColor;
         public static bool timerUp = false;
-        public int maxdepth = 1;
+        public static int maxdepth = 1;
 
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
@@ -71,12 +71,12 @@ namespace StudentAI
             if (AI.IsMyTurnOver() && HueristicMoves.Count > 0)
                 return HueristicMoves[0];
 
-            if (depth == maxdepth && HueristicMoves.Count>0)
-                return HueristicMoves[0];
+            //if (depth == maxdepth && HueristicMoves.Count>0)
+            //    return HueristicMoves[0];
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             //minimax and alpha beta pruning
             
-            while (!AI.IsMyTurnOver())
+            while (!AI.IsMyTurnOver() && depth==0)
             {
                 updatedhueristic = new List<Hueristic>();
                 foreach (var hmove in HueristicMoves)
@@ -116,8 +116,9 @@ namespace StudentAI
                 }
                 if (!AI.IsMyTurnOver())
                 {
-                    if (depth == maxdepth)
+                    if (depth == 0)
                     {
+                        //TODO INFINITE LOOP
                         maxdepth += 1;
                     }
                 }
