@@ -17,7 +17,7 @@ namespace StudentAI
         public string Name
         {
 #if DEBUG
-            get { return "Stalemater1"; }
+            get { return "Stalemater2"; }
 #else
             get { return "Stalemate FTWv2"; }
 #endif

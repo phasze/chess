@@ -13,7 +13,7 @@ namespace StudentAI
         public static Hueristic _bestMove = null;
         //private static ChessColor myColor;
         public static bool timerUp = false;
-        public static int maxdepth = 2;
+        public static int maxdepth = 1;
 
         public static void getMoveThread()//(StudentAI AI, ChessBoard board, ChessColor color, int depth)
         {
@@ -75,14 +75,14 @@ namespace StudentAI
             //    return HueristicMoves[0];
             List<Hueristic> updatedhueristic = new List<Hueristic>();
             //minimax and alpha beta pruning
-
+            bool defined = false;
+            var temp = new List<Hueristic>();
             do
             {
                 //TODO, store previous move and if we ran out of time use that one since we don't know if optimal on the next one
-                updatedhueristic = new List<Hueristic>();
+                temp = new List<Hueristic>();
                 foreach (var hmove in HueristicMoves)
                 {
-                    //TODO if player = maxplayer store a to be max then if beta <= alpha break
 
                     var tempBoard = board.Clone();
                     if (hmove.TheMove != null)
@@ -99,7 +99,7 @@ namespace StudentAI
                                     // update our moves score based on return of projected other move
                             }
                         }
-                        updatedhueristic.Add(hmove); // add new scored hueristic to new list
+                        temp.Add(hmove); // add new scored hueristic to new list
                         if (AI.IsMyTurnOver())
                             break;
                         //a=max(a,hueristic)
@@ -122,9 +122,13 @@ namespace StudentAI
                     if (depth == 0)
                     {
                         maxdepth += 1;
+                        defined = true;
+                        updatedhueristic = temp;
                     }
                 }
             } while (!AI.IsMyTurnOver() && depth == 0);
+            if (!defined)
+                updatedhueristic = temp;
 
             updatedhueristic.Sort((x, y) => y.HValue.CompareTo(x.HValue)); // sort the new list
 
